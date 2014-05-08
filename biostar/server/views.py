@@ -6,16 +6,17 @@ import os, random
 from django.core.cache import cache
 from biostar.apps.messages.models import Message
 from biostar.apps.users.models import User
-from biostar.apps.posts.models import Post, Vote, Tag, Subscription
+from biostar.apps.posts.models import Post, Vote, Tag, Subscription, ReplyToken
 from biostar.apps.posts.views import NewPost, NewAnswer
 from biostar.apps.badges.models import Badge, Award
-
 from biostar.apps.posts.auth import post_permissions
+from biostar.apps.util import html
+
 from django.contrib import messages
 from datetime import datetime, timedelta
 from biostar.const import OrderedDict
 from biostar import const
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, JSONResponseMixin
 from django import shortcuts
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
@@ -23,6 +24,9 @@ import logging
 from django.contrib.flatpages.models import FlatPage
 from haystack.query import SearchQuerySet
 from . import moderate
+from django.http import Http404
+import markdown, pyzmail
+from biostar.apps.util.email_reply_parser import EmailReplyParser
 
 logger = logging.getLogger(__name__)
 
@@ -610,6 +614,79 @@ class BadgeList(BaseListMixin):
         context = super(BadgeList, self).get_context_data(**kwargs)
         return context
 
+
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+from django.utils.encoding import smart_text
+import json
+
+
+@csrf_exempt
+def email_handler(request):
+    key = request.POST.get("key")
+    if key != settings.EMAIL_REPLY_SECRET_KEY:
+        data = dict(status="error", msg="key does not match")
+    else:
+        body = request.POST.get("body")
+        body = smart_text(body)
+
+        # This is for debug only
+        #fname = "%s/email-debug.txt" % settings.LIVE_DIR
+        #fp = file(fname, "wt")
+        #fp.write(body.encode("utf-8"))
+        #fp.close()
+
+        try:
+            # Parse the incoming email.
+            msg = pyzmail.PyzMessage.factory(body)
+
+            # Extract the address from the address tuples.
+            address = msg.get_addresses('to')[0][1]
+
+            # Parse the token from the address.
+            start, token, rest = address.split('+')
+
+            # Verify that the token exists.
+            token = ReplyToken.objects.get(token=token)
+
+            # Find the post that the reply targets
+            post, author = token.post, token.user
+
+            # Extract the body of the email.
+            part = msg.text_part or msg.html_part
+            text = part.get_payload()
+
+            # Remove the reply related content
+            text = EmailReplyParser.parse_reply(text)
+
+            # Apply server specific formatting
+            text = html.parse_html(text)
+
+            # Apply the markdown on the text
+            text = markdown.markdown(text)
+
+            # Rate-limit sanity check, potentially a runaway process
+            since = const.now() - timedelta(days=1)
+            if Post.objects.filter(author=author, creation_date__gt=since).count() > settings.MAX_POSTS_TRUSTED_USER:
+                raise Exception("too many posts created %s" % author.id)
+
+            # Create the new post.
+            post_type = Post.ANSWER if post.is_toplevel else Post.COMMENT
+            obj = Post.objects.create(type=post_type, parent=post, content=text, author=author)
+
+            # Delete the token. Disabled for now.
+            # Old token should be deleted in the data pruning
+            #token.delete()
+
+            # Form the return message.
+            data = dict(status="ok", id=obj.id)
+
+        except Exception, exc:
+            data = dict(status="error", msg=str(exc))
+
+    data = json.dumps(data)
+    return HttpResponse(data, content_type="application/json")
+
 #
 # These views below are here to catch old URLs from the 2009 version of the SE1 site
 #
@@ -620,10 +697,15 @@ if os.path.isfile(POST_REMAP_FILE):
 else:
     REMAP = {}
 
+
 def post_redirect(request, pid):
     "Redirect to a post"
-    post = Post.objects.get(id=pid)
+    try:
+        post = Post.objects.get(id=pid)
+    except Post.DoesNotExist:
+        raise Http404
     return shortcuts.redirect(post.get_absolute_url(), permanent=True)
+
 
 def post_remap_redirect(request, pid):
     "Remap post id and redirect, SE1 ids"
@@ -634,6 +716,7 @@ def post_remap_redirect(request, pid):
     except Exception, exc:
         messages.error(request, "Unable to redirect: %s" % exc)
         return shortcuts.redirect("/")
+
 
 def tag_redirect(request, tag):
     try:

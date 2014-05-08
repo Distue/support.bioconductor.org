@@ -1,11 +1,9 @@
-User {{user.name}} replied to "{{ post.root.get_title|safe }}":
+{{user.name}} posted the {{post.get_type_display}}: "{{ post.root.get_title|safe }}":
 
 {{post.as_text|safe|truncatewords:150}}
 
 ---
-
-See more at: http://{{site.domain}}{{ post.get_absolute_url }}
-
----
-
-You are receiving this message because you are subscribed to the post via email.
+See the full post at: http://{{site.domain}}{{ post.get_absolute_url }}
+{% if post.is_toplevel %}Replying to this email will post an answer to the question above.
+{% else %}Replying to this email will post a comment to the answer above.
+{% endif %}

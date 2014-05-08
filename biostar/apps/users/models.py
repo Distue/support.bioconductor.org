@@ -154,6 +154,23 @@ class User(AbstractBaseUser):
 # This contains the notification types.
 from biostar import const
 
+class EmailList(models.Model):
+    "The list of emails that opted in receiving emails"
+    email = models.EmailField(verbose_name='Email', db_index=True, max_length=255, unique=True)
+    type = models.IntegerField(default=0)
+    active = models.BooleanField(default=True)
+    date = models.DateTimeField(auto_created=True)
+
+class Tag(models.Model):
+    name = models.TextField(max_length=50, db_index=True)
+
+
+# Default message preferences.
+MESSAGE_PREF_MAP = dict(
+    local=const.LOCAL_MESSAGE, default=const.DEFAULT_MESSAGES, email=const.EMAIL_MESSAGE
+)
+MESSAGE_PREFS = MESSAGE_PREF_MAP.get(settings.DEFAULT_MESSAGE_PREF, const.LOCAL_MESSAGE)
+
 class Profile(models.Model):
     """
     Maintains information that does not always need to be retreived whe a user is accessed.
@@ -182,6 +199,9 @@ class Profile(models.Model):
     # Google scholar ID
     scholar = models.CharField(default="", max_length=255, blank=True)
 
+    # Twitter ID
+    twitter_id = models.CharField(default="", max_length=255, blank=True)
+
     # This field is used to select content for the user.
     my_tags = models.TextField(default="", max_length=255, blank=True)
 
@@ -189,11 +209,46 @@ class Profile(models.Model):
     info = models.TextField(default="", null=True, blank=True)
 
     # The default notification preferences.
-    message_prefs = models.IntegerField(choices=TYPE_CHOICES, default=const.DEFAULT_MESSAGES)
+    message_prefs = models.IntegerField(choices=TYPE_CHOICES, default=MESSAGE_PREFS)
 
     # This stores binary flags on users. Their usage is to
     # allow easy subselection of various subsets of users.
     flag = models.IntegerField(default=0)
+
+    # The tag value is the canonical form of the post's tags
+    watched_tags = models.CharField(max_length=100, default="", blank=True)
+
+    # The tag set is built from the watch_tag string and is used to trigger actions
+    # when a post that matches this tag is set
+    tags = models.ManyToManyField(Tag, blank=True, )
+
+    def parse_tags(self):
+        # Currently duplicated with post models. Not sure if the format should stay the same.
+        # Upper case
+        def fixcase(w):
+            w = w.strip()
+            w = w.upper() if len(w) == 1 else w.lower()
+            return w
+
+        # Try splitting by comma
+        words = self.tag_val.split(",")
+
+        # Change case as necessary.
+        words = map(fixcase, words)
+
+        # Remove empty
+        words = filter(None, words)
+
+        return words
+
+    def add_tags(self, text):
+        text = text.strip()
+        # Sanitize the tag value
+        self.tag_val = bleach.clean(text, tags=[], attributes=[], styles={}, strip=True)
+        # Clear old tags
+        self.tags.clear()
+        tags = [Tag.objects.get_or_create(name=name)[0] for name in self.parse_tags()]
+        self.tags.add(*tags)
 
     def save(self, *args, **kwargs):
 
@@ -228,6 +283,7 @@ class Profile(models.Model):
         if created:
             prof = Profile(user=instance)
             prof.save()
+
 
 
 class UserCreationForm(forms.ModelForm):

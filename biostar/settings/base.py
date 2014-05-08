@@ -152,6 +152,18 @@ SITE_DOMAIN = get_env("BIOSTAR_HOSTNAME")
 
 SERVER_EMAIL = DEFAULT_FROM_EMAIL = get_env("DEFAULT_FROM_EMAIL")
 
+# What domain will handle the replies.
+EMAIL_REPLY_PATTERN = "reply+%s+code@biostars.io"
+
+# The format of the email that is sent
+EMAIL_FROM_PATTERN = u"%s on Biostar <%s>"
+
+# The secret key that is required to parse the email
+EMAIL_REPLY_SECRET_KEY = "abc"
+
+# The subject of the reply goes here
+EMAIL_REPLY_SUBJECT = u"[biostar] %s"
+
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
@@ -308,8 +320,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
+    "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
+    "biostar.server.middleware.ExternalAuth",
 )
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
@@ -387,8 +400,9 @@ POST_VIEW_MINUTES = 5
 # Default  expiration in seconds.
 CACHE_TIMEOUT = 60
 
-# Should the messages go to email by default?
-DEFAULT_EMAIL_ON = False
+# Should the messages go to email by default
+# Valid values are local, default, email
+DEFAULT_MESSAGE_PREF = "default"
 
 # Django precompressor settings.
 COMPRESS_PRECOMPILERS = (
