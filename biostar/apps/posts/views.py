@@ -23,6 +23,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def valid_title(text):
     "Validates form input for tags"
     text = text.strip()
@@ -58,18 +59,24 @@ class LongForm(forms.Form):
                     (Post.FORUM, "Forum"), (Post.NEWS, "News"),
                     (Post.BLOG, "Blog"), (Post.PAGE, "Page")]
 
-    title = forms.CharField(max_length=200, min_length=10, validators=[valid_title],
-                            help_text="Descriptive titles promote better answers.")
+    title = forms.CharField(
+        label="Post Title",
+        max_length=200, min_length=10, validators=[valid_title],
+        help_text="Descriptive titles promote better answers.")
 
-    post_type = forms.ChoiceField(choices=POST_CHOICES, help_text="Select a post type: Question, Forum, Job, Blog")
+    post_type = forms.ChoiceField(
+        label="Post Type",
+        choices=POST_CHOICES, help_text="Select a post type: Question, Forum, Job, Blog")
 
-    tag_val = forms.CharField(required=True, validators=[valid_tag],
-                              help_text="Choose one or more tags to match the topic. To create a new tag just type it in and press ENTER.",
-                              label="Tags")
+    tag_val = forms.CharField(
+        label="Post Tags",
+        required=True, validators=[valid_tag],
+        help_text="Choose one or more tags to match the topic. To create a new tag just type it in and press ENTER.",
+    )
 
     content = forms.CharField(widget=forms.Textarea,
                               min_length=80, max_length=15000,
-                              label="Post content")
+                              label="Enter your post below")
 
     def __init__(self, *args, **kwargs):
         super(LongForm, self).__init__(*args, **kwargs)
@@ -111,6 +118,7 @@ class ShortForm(forms.Form):
 def parse_tags(category, tag_val):
     pass
 
+
 @login_required
 @csrf_exempt
 def external_post_handler(request):
@@ -137,7 +145,7 @@ def external_post_handler(request):
         return HttpResponseRedirect(home)
 
     content = request.REQUEST.get("content")
-    submit  = request.REQUEST.get("action")
+    submit = request.REQUEST.get("action")
     digest1 = request.REQUEST.get("digest")
     digest2 = hmac.new(secret, content).hexdigest()
 
@@ -174,7 +182,7 @@ class NewPost(LoginRequiredMixin, FormView):
         for key in "title tag_val content".split():
             value = request.GET.get(key)
             if value:
-                initial[key]=value
+                initial[key] = value
 
         # Attempt to prefill from external session
         sess = request.session
