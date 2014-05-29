@@ -100,7 +100,7 @@ def posts_by_topic(request, topic):
 
     if topic == MYPOSTS:
         # Get the posts that the user wrote.
-        return Post.objects.my_posts(user)
+        return Post.objects.my_posts(target=user, user=user)
 
     if topic == MYTAGS:
         # Get the posts that the user wrote.
@@ -280,7 +280,7 @@ class UserList(ListView):
             self.limit = const.POST_LIMIT_DEFAULT
 
         # Apply the sort on users
-        obj = User.objects.get_users(sort=self.sort, limit=self.limit, q=self.q)
+        obj = User.objects.get_users(sort=self.sort, limit=self.limit, q=self.q, user=self.request.user)
         return obj
 
     def get_context_data(self, **kwargs):
@@ -322,7 +322,8 @@ class UserDetails(BaseDetailMixin):
     def get_context_data(self, **kwargs):
         context = super(UserDetails, self).get_context_data(**kwargs)
         target = context[self.context_object_name]
-        posts = Post.objects.filter(author=target).defer("content").order_by("-creation_date")
+        #posts = Post.objects.filter(author=target).defer("content").order_by("-creation_date")
+        posts = Post.objects.my_posts(target=target, user=self.request.user)
         paginator = Paginator(posts, 10)
         try:
             page = int(self.request.GET.get("page", 1))
