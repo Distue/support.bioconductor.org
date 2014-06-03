@@ -6,3 +6,4 @@
 /live/*
 /conf/*.env
 /docs/_build
+index.wsgi
