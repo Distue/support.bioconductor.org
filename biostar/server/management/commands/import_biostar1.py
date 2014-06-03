@@ -69,7 +69,7 @@ def get_post(row, users, klass):
     root_id = get(row, 'root_id', func=int)
     parent_id = get(row, 'parent_id', func=int)
 
-    title = get(row, 'title').title()
+    title = get(row, 'title')
     title = title[:200]
     tag_val = get(row, 'tag_val').strip()
 
