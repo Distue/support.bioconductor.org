@@ -1,0 +1,18 @@
+Hello!
+
+If you are receiving this email message it means that you have previously been subscribed to the Bioconductor mailing list.  This mailing list is over ten years old now and it's time to upgrade to a newer system.  In doing this, we have chosen to use a system that will still allow those of you who are used to using a mail client to continue to work as before.  
+
+Our new system is built on Biostars which is an open source project in it's own right.  We have made a fork of this codebase for the Bioconductor project and have skined it accordingly.  One of the many new features for this project is that it can import email messages from old mailing lists.  Since we have files with all these old messages we have imported them into the new system.
+
+
+However in order to take advantage of the new system, a very small amount of setup work is required. You will need an account on the new system.  If you have never posted before, please feel free to sign up with a new account using this page:
+
+http://gamay:8080/accounts/login/
+
+But if you are like most people on this list, not only will you have subscribed before you also will have posted using your current email address.  In that case you probably want to use the same email adress that you have been using (and thus also get credit for all your previous posts).  To do that, start at the same page as above and click the link that says "Forgot Password?".  This will take you to a page that will allow you to reset your password for an older email (and existing) email account.
+
+Once you have an account set up you will be almost all the way done.  The only thing left to do is to log in and click the link near the top with your name on it (right above the word 'Community').  Then click 'Edit Your Profile' and scroll down to look for the option called 'Notifications*'.  This option sets you up for how you want to communicate with the list.  The default is simply called 'default'.  This mode will just keep all your posts and their responses on the new web site.  If you leave it set like this your mailbox will not fill up, but you will also have to check in on the web site periodically to see if people have responded to your posts etc. The second option is called 'local messages' this setting means  ?????  The third setting is called 'email'.  This setting will email you if people reply to your questions.  And the fourth option is called 'email for every new thread (mailing list mode)'.  This fourth option if for those of you who never want to stop using the bioconductor mailing list as a classic email list.  Use this option if you want to get all posts sent to you as email, and want to also reply to them using standard email.
+
+
+
+ Marc

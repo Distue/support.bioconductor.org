@@ -27,7 +27,7 @@ def now():
 
 class LocalManager(UserManager):
 
-    def get_users(self, sort, limit, q):
+    def get_users(self, sort, limit, q, user):
         sort = const.USER_SORT_MAP.get(sort, None)
         days = const.POST_LIMIT_MAP.get(limit, 0)
 
@@ -40,7 +40,11 @@ class LocalManager(UserManager):
             delta = const.now() - timedelta(days=days)
             query = self.filter(profile__last_login__gt=delta)
 
-        query = query.select_related("profile").order_by(sort)
+        if user.is_authenticated() and user.is_moderator:
+            query = query.select_related("profile").order_by(sort)
+        else:
+            query = query.exclude(status=User.BANNED).select_related("profile").order_by(sort)
+
         return query
 
 class User(AbstractBaseUser):
@@ -223,23 +227,12 @@ class Profile(models.Model):
     tags = models.ManyToManyField(Tag, blank=True, )
 
     def parse_tags(self):
-        # Currently duplicated with post models. Not sure if the format should stay the same.
-        # Upper case
-        def fixcase(w):
-            w = w.strip()
-            w = w.upper() if len(w) == 1 else w.lower()
-            return w
+        return util.split_tags(self.tag_val)
 
-        # Try splitting by comma
-        words = self.tag_val.split(",")
-
-        # Change case as necessary.
-        words = map(fixcase, words)
-
-        # Remove empty
-        words = filter(None, words)
-
-        return words
+    def clear_data(self):
+        "Actions to take when suspending or banning users"
+        self.website = self.twitter_id = self.info = self.location = ''
+        self.save()
 
     def add_tags(self, text):
         text = text.strip()
@@ -329,7 +322,7 @@ class UserChangeForm(forms.ModelForm):
 
 class ProfileInline(admin.StackedInline):
     model = Profile
-    fields = ["location", "website", "scholar", "info"]
+    fields = ["location", "website", "scholar", "twitter_id", "message_prefs", "my_tags", "watched_tags", "info"]
 
 
 class BiostarUserAdmin(UserAdmin):

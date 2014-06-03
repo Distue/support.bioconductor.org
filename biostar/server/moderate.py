@@ -2,6 +2,7 @@
 Moderator views
 """
 from biostar.apps.posts.models import Post
+from biostar.apps.badges.models import Award
 from biostar.apps.posts.auth import post_permissions
 from biostar.apps.users.models import User
 from biostar.apps.users.auth import user_permissions
@@ -23,7 +24,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-OPEN, CLOSE_OFFTOPIC, CLOSE_SPAM, DELETE, DUPLICATE, MOVE_TO_COMMENT, MOVE_TO_ANSWER = map(str, range(7))
+OPEN, CLOSE_OFFTOPIC, CLOSE_SPAM, DELETE, DUPLICATE, MOVE_TO_COMMENT, MOVE_TO_ANSWER, CROSSPOST = map(str, range(8))
 
 from biostar.apps.util import now
 
@@ -89,6 +90,7 @@ class PostModForm(forms.Form):
         (MOVE_TO_ANSWER, "Move post to an answer"),
         (MOVE_TO_COMMENT, "Move post to a comment on the top level post"),
         (DUPLICATE, "Duplicated post (top level)"),
+        (CROSSPOST, "Cross posted at other site"),
         (CLOSE_OFFTOPIC, "Close post (top level)"),
         (DELETE, "Delete post"),
     ]
@@ -96,7 +98,7 @@ class PostModForm(forms.Form):
     action = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(), label="Select Action")
 
     comment = forms.CharField(required=False, max_length=200,
-                              help_text="Enter a reason (required when closing). This will be inserted into a template comment.")
+                              help_text="Enter a reason (required when closing, crosspost). This will be inserted into a template comment.")
 
     dupe = forms.CharField(required=False, max_length=200,
                            help_text="One or more duplicated post numbers, space or comma separated (required for duplicate closing).",
@@ -132,6 +134,9 @@ class PostModForm(forms.Form):
 
         if action == CLOSE_OFFTOPIC and not comment:
             raise forms.ValidationError("Unable to close. Please add a comment!")
+
+        if action == CROSSPOST and not comment:
+            raise forms.ValidationError("Please add URL into the comment!")
 
         if action == DUPLICATE and not dupe:
             raise forms.ValidationError("Unable to close duplicate. Please fill in the post numbers")
@@ -225,6 +230,12 @@ class PostModeration(LoginRequiredMixin, FormView):
             query.update(status=Post.CLOSED)
             messages.success(request, "Closed post: %s" % post.title)
             content = html.render(name="messages/offtopic_posts.html", user=post.author, comment=get("comment"), post=post)
+            comment = Post(content=content, type=Post.COMMENT, parent=post, author=user)
+            comment.save()
+            return response
+
+        if action == CROSSPOST:
+            content = html.render(name="messages/crossposted.html", user=post.author, comment=get("comment"), post=post)
             comment = Post(content=content, type=Post.COMMENT, parent=post, author=user)
             comment.save()
             return response
@@ -328,6 +339,7 @@ class UserModeration(LoginRequiredMixin, FormView):
 
         target = self.get_obj()
         target = user_permissions(request, target)
+        profile = target.profile
 
         # The response after the action
         response = HttpResponseRedirect(target.get_absolute_url())
@@ -360,6 +372,11 @@ class UserModeration(LoginRequiredMixin, FormView):
             return response
 
         if action == User.BANNED and user.is_administrator:
+            # Remove data by user
+            profile.clear_data()
+
+            # Remove badges that may have been earned by this user
+            Award.objects.filter(user=target).delete()
 
             # Mass delete posts by this user
             query = Post.objects.filter(author=target, type__in=Post.TOP_LEVEL).update(status=Post.DELETED)
