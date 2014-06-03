@@ -242,3 +242,54 @@ source live/custom.env
 ##
 ########################################################################
 ########################################################################
+
+
+
+#########################################################################
+## Dans email about the production server:
+## Everything is hosted on habu. I *think* you should be able to
+## ssh mcarlson@habu
+## without needing a password. Let me know if that works.
+## And everything runs as the www-data user (this is the user that
+## apache runs as). So you should not make any changes as mcarlson,
+## instead you should:
+## sudo su - www-data
+## 
+## AMMENDMENT: now just ssh in directly as the www-data user:
+
+ssh www-data@habu
+
+## You should have sudo privileges so that should work, let me know if not.
+
+## I tried to set up ssh'ing directly to www-data@habu and for
+## whatever reason it doesn't work. I can look into it but this is a
+## not too annoying workaround.
+
+## Anyway, inside ~www-data you'll see a biostar-central
+## directory. This is a clone of our fork of biostars.
+
+## The way that Apache links to biostar is through the index.wsgi file
+## inside the biostar-central directory, which is a python script.
+
+## Since apache calls this script directly, there is no opportunity to
+## source a .sh file like you do on gamay, so all the environment
+## variables that were set in live/custom.env are now set in
+## index.wsgi. They are just set in python instead of shell script.
+
+## One more thing, biostar runs in a virtualenv on habu just like it
+## does on gamay, and you can activate that virtualenv as follows:
+
+source ~/.virtualenvs/biostarsenv/bin/activate
+
+## ALSO: on production there should never be a need to run the "run" script
+## So no: ./biostar.sh run
+## ALSO: do NOT ever load this on production since the envir there is
+## not able to be set to 'safe' - IOW the always active index.wsgi
+## apache file is based only on the unsafe contents of live/custom.env
+## AND: if you must restart apache you do it like this:
+
+sudo service apache restart
+
+## once things are finished indexing on gamay, I need to 1) copy the
+## contents of /live/custom.py from gamay 2) re-run the init script,
+## 3) copy the DB, and then apache should be running it.
