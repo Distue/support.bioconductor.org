@@ -106,12 +106,12 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': DATABASE_NAME,
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'biostar',
+        'USER': 'biostar',
+        'PASSWORD': get_env("POSTGRESQL_PASSWORD"),
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
