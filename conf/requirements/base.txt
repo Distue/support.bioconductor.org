@@ -19,6 +19,7 @@ pyzmail
 chardet
 feedparser
 psycopg2
+pyelasticsearch
 
 #django-secure
 #python-dateutil
