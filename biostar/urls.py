@@ -13,6 +13,9 @@ from biostar.apps.planet.views import BlogPostList
 
 urlpatterns = patterns('',
 
+    # for searching with haystack
+    (r'^search/', include('haystack.urls')),
+
     # Post listing.
     url(r'^$', views.PostList.as_view(), name="home"),
 
