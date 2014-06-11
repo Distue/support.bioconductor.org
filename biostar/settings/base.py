@@ -153,7 +153,7 @@ SITE_DOMAIN = get_env("BIOSTAR_HOSTNAME")
 SERVER_EMAIL = DEFAULT_FROM_EMAIL = get_env("DEFAULT_FROM_EMAIL")
 
 # What domain will handle the replies.
-EMAIL_REPLY_PATTERN = "reply+%s+code@biostars.io"
+EMAIL_REPLY_PATTERN = "reply+%s+code@bioconductor.org"
 
 # The format of the email that is sent
 EMAIL_FROM_PATTERN = u"%s on Biostar <%s>"
@@ -162,7 +162,7 @@ EMAIL_FROM_PATTERN = u"%s on Biostar <%s>"
 EMAIL_REPLY_SECRET_KEY = "abc"
 
 # The subject of the reply goes here
-EMAIL_REPLY_SUBJECT = u"[biostar] %s"
+EMAIL_REPLY_SUBJECT = u"[bioc] %s"
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -376,6 +376,14 @@ SOCIALACCOUNT_PROVIDERS = {
         'PROVIDER_KEY': get_env("GOOGLE_PROVIDER_KEY"),
         'PROVIDER_SECRET_KEY': get_env("GOOGLE_PROVIDER_SECRET_KEY"),
     },
+
+    'twitter': {
+        'SCOPE': ['email', 'https://twitter.com/some-unknown-url'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+        'PROVIDER_KEY': get_env("TWITTER_PROVIDER_KEY"),
+        'PROVIDER_SECRET_KEY': get_env("TWITTER_PROVIDER_SECRET_KEY"),
+    },
+
 }
 
 # The google id will injected as a template variable.
