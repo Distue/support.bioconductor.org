@@ -4,7 +4,7 @@ from celery.schedules import crontab
 
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 
-BROKER_URL = 'django://'
+BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 
 CELERY_TASK_SERIALIZER = 'pickle'
 
@@ -42,13 +42,14 @@ CELERYBEAT_SCHEDULE = {
         'task': 'biostar.celery.call_command',
         'schedule': crontab(minute=10),
         'args': ["biostar_pg_dump"],
-        'kwargs': {"hourly": True}
+        'kwargs': {"hourly": True, "pg_user": "biostar"}
     },
 
     'daily_dump': {
         'task': 'biostar.celery.call_command',
         'schedule': crontab(hour=22),
         'args': ["biostar_pg_dump"],
+        'kwargs': {"pg_user": "biostar"}
     },
 
     'hourly_feed': {
