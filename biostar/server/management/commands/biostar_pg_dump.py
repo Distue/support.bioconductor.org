@@ -24,7 +24,7 @@ class Command(BaseCommand):
 
     option_list = BaseCommand.option_list + (
         make_option('--hourly', dest='hourly', action='store_true', default=False, help='hourly datadump'),
-        make_option('-u', dest='pg_user', default="www", help='postgres user default=%default'),
+        make_option('-u', dest='pg_user', default="biostar", help='postgres user default=%default'),
         make_option('-p', dest='prog', default="/usr/bin/pg_dump", help='the postgres program default=%default'),
         make_option('-o', dest='outdir', default="~/data/", help='output directory default=%default'),
     )
@@ -43,7 +43,9 @@ def main(pg_user, hourly, prog, outdir):
     if not os.path.isdir(outdir):
         os.mkdir(outdir)
 
-    pg_name = settings.DATABASE_NAME
+    segs = settings.DATABASE_NAME.split("/")
+
+    pg_name = segs[len(segs)-1]
 
     # Hourly database dumps have a simpler name so
     # that they overwrite each other.
