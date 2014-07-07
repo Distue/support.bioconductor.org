@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from datetime import timedelta
 from celery.schedules import crontab
+import os
 
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 
@@ -42,14 +43,16 @@ CELERYBEAT_SCHEDULE = {
         'task': 'biostar.celery.call_command',
         'schedule': crontab(minute=10),
         'args': ["biostar_pg_dump"],
-        'kwargs': {"hourly": True, "pg_user": "biostar"}
+        'kwargs': {"hourly": True, "pg_user": "biostar",
+            "outdir": os.join(os.getenv("HOME"), "data")}
     },
 
     'daily_dump': {
         'task': 'biostar.celery.call_command',
         'schedule': crontab(hour=22),
         'args': ["biostar_pg_dump"],
-        'kwargs': {"pg_user": "biostar"}
+        'kwargs': {"pg_user": "biostar",
+            "outdir": os.join(os.getenv("HOME"), "data")}
     },
 
     'hourly_feed': {
@@ -66,12 +69,12 @@ CELERYBEAT_SCHEDULE = {
         'kwargs': {"download": True}
     },
 
-    'bump': {
-        'task': 'biostar.celery.call_command',
-        'schedule': timedelta(hours=6),
-        'args': ["patch"],
-        'kwargs': {"bump": True}
-    },
+    # 'bump': {
+    #     'task': 'biostar.celery.call_command',
+    #     'schedule': timedelta(hours=6),
+    #     'args': ["patch"],
+    #     'kwargs': {"bump": True}
+    # },
 
 }
 
