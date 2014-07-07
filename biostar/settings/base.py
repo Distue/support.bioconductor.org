@@ -277,6 +277,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.stackexchange',
+    'allauth.socialaccount.providers.twitter',
+
+
     #'allauth.socialaccount.providers.linkedin',
     #'allauth.socialaccount.providers.weibo',
 
@@ -378,10 +382,18 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 
     'twitter': {
-        'SCOPE': ['email', 'https://twitter.com/some-unknown-url'],
+        'SCOPE': ['email'],
         'AUTH_PARAMS': {'access_type': 'online'},
         'PROVIDER_KEY': get_env("TWITTER_PROVIDER_KEY"),
         'PROVIDER_SECRET_KEY': get_env("TWITTER_PROVIDER_SECRET_KEY"),
+    },
+
+     'stackexchange': {
+        'SCOPE': ['email'],
+        'PROVIDER_KEY': get_env('STACKEXCHANGE_PROVIDER_KEY'),
+        'PROVIDER_SECRET': get_env('STACKEXCHANGE_PROVIDER_SECRET_KEY'),
+        'KEY': get_env('STACKEXCHANGE_KEY'),
+#        'SITE': 'stackoverflow',
     },
 
 }
