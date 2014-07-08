@@ -11,6 +11,14 @@ CELERY_TASK_SERIALIZER = 'pickle'
 
 CELERY_ACCEPT_CONTENT = ['pickle']
 
+import socket
+hostname = socket.gethostname()
+
+if hostname == "habu":
+    home = "/home/www-data"
+else:
+    home = os.getenv("HOME")
+
 CELERYBEAT_SCHEDULE = {
 
     'prune_data': {
@@ -44,7 +52,7 @@ CELERYBEAT_SCHEDULE = {
         'schedule': crontab(minute=10),
         'args': ["biostar_pg_dump"],
         'kwargs': {"hourly": True, "pg_user": "biostar",
-            "outdir": os.path.join(os.getenv("HOME"), "data")}
+            "outdir": os.path.join(home, "data")}
     },
 
     'daily_dump': {
@@ -52,7 +60,7 @@ CELERYBEAT_SCHEDULE = {
         'schedule': crontab(hour=22),
         'args': ["biostar_pg_dump"],
         'kwargs': {"pg_user": "biostar",
-            "outdir": os.path.join(os.getenv("HOME"), "data")}
+            "outdir": os.path.join(home, "data")}
     },
 
     'hourly_feed': {
