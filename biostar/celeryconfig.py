@@ -44,7 +44,7 @@ CELERYBEAT_SCHEDULE = {
         'schedule': crontab(minute=10),
         'args': ["biostar_pg_dump"],
         'kwargs': {"hourly": True, "pg_user": "biostar",
-            "outdir": os.join(os.getenv("HOME"), "data")}
+            "outdir": os.path.join(os.getenv("HOME"), "data")}
     },
 
     'daily_dump': {
@@ -52,7 +52,7 @@ CELERYBEAT_SCHEDULE = {
         'schedule': crontab(hour=22),
         'args': ["biostar_pg_dump"],
         'kwargs': {"pg_user": "biostar",
-            "outdir": os.join(os.getenv("HOME"), "data")}
+            "outdir": os.path.join(os.getenv("HOME"), "data")}
     },
 
     'hourly_feed': {
