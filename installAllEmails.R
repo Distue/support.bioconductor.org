@@ -100,21 +100,59 @@ lapply(commands, .system)
 ## lapply(commands[51:100], .system)
 
 ## IN this set I had TROUBLE with these files:
+## Fixed now?
 ## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2007-October.txt
-## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2008-May.txt
 ## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2010-February.txt
+
+## still borked:
+## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2008-May.txt
+## TypeError: decode() argument 1 must be string, not None
+
+
 
 
 ## lapply(commands[101:146], .system)
 ## IN this set I had TROUBLE with these files:
+
+## Fixed list:
 ## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2010-March.txt
 ## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2010-November.txt
 ## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2011-April.txt
 ## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2011-August.txt
-## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2011-March.txt
-## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2012-August.txt
-## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2012-June.txt
-## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2012-March.txt
 ## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2013-January.txt
+
+
+## Still broken:
+## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2011-March.txt
+##   File "/home/mcarlson/tasks/forkBiostars/biostar-central/biostar/server/management/commands/import_mbox.py", line 211, in unpack_message
+##     body = body.decode(charset).encode('utf-8')
+## TypeError: decode() argument 1 must be string, not None
+
+## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2012-August.txt
+##   File "/home/mcarlson/tasks/forkBiostars/biostar-central/biostar/server/management/commands/import_mbox.py", line 211, in unpack_message
+##     body = body.decode(charset).encode('utf-8')
+## TypeError: decode() argument 1 must be string, not None
+
 ## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2013-October.txt
-## 
+##   File "/home/mcarlson/tasks/forkBiostars/biostar-central/biostar/server/management/commands/import_mbox.py", line 211, in unpack_message
+##     body = body.decode(charset).encode('utf-8')
+## TypeError: decode() argument 1 must be string, not None
+
+
+
+##################################################################
+ ## THESE TWO: looks different from the rest.
+## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2012-June.txt
+##   File "/home/mcarlson/virt_env/biostar/local/lib/python2.7/site-packages/django/db/backends/util.py", line 53, in execute
+##     return self.cursor.execute(sql, params)
+## django.db.utils.DataError: value too long for type character varying(200)
+
+ ## And this one also looks like that:
+## /mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2012-March.txt
+##   File "/home/mcarlson/virt_env/biostar/local/lib/python2.7/site-packages/django/db/backends/util.py", line 53, in execute
+##     return self.cursor.execute(sql, params)
+## django.db.utils.DataError: value too long for type character varying(200)
+
+
+
+
