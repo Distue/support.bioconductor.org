@@ -293,3 +293,11 @@ sudo service apache restart
 ## once things are finished indexing on gamay, I need to 1) copy the
 ## contents of /live/custom.py from gamay 2) re-run the init script,
 ## 3) copy the DB, and then apache should be running it.
+
+## Changing default biostar templates
+## The templates are in biostar/server/templates
+
+## Dan changed starbase.html in this directory to make
+## it very clear that the site is not live yet. There
+## are comments indicating what changed. This content
+## should be removed when we go live.
