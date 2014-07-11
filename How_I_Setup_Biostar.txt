@@ -78,7 +78,7 @@ source live/loading.env
 ## python manage.py import_mbox -f 2013.txt
 ## python manage.py import_mbox -f 2014.txt
 
-## THEN index
+## THEN index (problem with this since switching to postgresql)
 ./biostar.sh index 
 
 ## THEN load new env variables so that the email can work...
