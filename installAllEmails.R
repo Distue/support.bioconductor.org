@@ -84,8 +84,10 @@ length(commands)
 
 
 
-lapply(commands, .system)
+res <- lapply(commands, .system)
 
+## make sure they all loaded:
+table(unlist(res))
 
 
 

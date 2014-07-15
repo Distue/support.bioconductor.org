@@ -61,14 +61,27 @@ npm install less
 
 
 
-
-## This deleted all posts from the DB (CAREFUL!)
-./biostar.sh delete
-## Then re-init:
 ## ALWAYS DO THIS BEFORE YOU WORK ON BIOSTARS:
 source ~/virt_env/biostar/bin/activate
 source live/loading.env
-./biostar.sh init
+## AND remove this directory too!:
+rm -r import/bioc
+## THEN delete, re-create and init postgres DBs
+export PGUSER=postgres
+./biostar.sh pg_drop pg_create init 
+## THEN import the emails
+
+
+############################################3
+## older stuff from when we had a sqlite back end:
+## Then re-init:
+## ALWAYS DO THIS BEFORE YOU WORK ON BIOSTARS:
+## source ~/virt_env/biostar/bin/activate
+## source live/loading.env
+## This deletes all posts from the DB (CAREFUL!)
+## ./biostar.sh delete
+## ./biostar.sh init
+
 
 ## THEN import:
 ## This is how we can import an email file:
@@ -78,8 +91,10 @@ source live/loading.env
 ## python manage.py import_mbox -f 2013.txt
 ## python manage.py import_mbox -f 2014.txt
 
-## THEN index (problem with this since switching to postgresql)
-./biostar.sh index 
+## THEN index (don't need to run this unless you want to index OLD search boxes)
+## This step is only to index the search engine (and we swapped to
+##  using a different one of those...
+## ./biostar.sh index 
 
 ## THEN load new env variables so that the email can work...
 source live/custom.env
@@ -107,7 +122,14 @@ nohup ./biostar.sh init run > biostar.log 2>&1 &
 
 ## How can I change the look / tabs?
 
+
 ## Where are the word association file for automatically tagging posts?
+## Tagging ANSWER:
+## For tagging, I should be able to do it like this:
+## http://docs.biostars.org/en/latest/manage.html#command-line-tagging
+
+
+
 
 ## How do I set up the automatic email option for users?
 ## What is difference between 'email' and 'email for every thread'?
@@ -301,3 +323,51 @@ sudo service apache restart
 ## it very clear that the site is not live yet. There
 ## are comments indicating what changed. This content
 ## should be removed when we go live.
+
+
+
+
+###########################################################################
+## ARGH now with a 'clean load', I see we still have some months that
+## are not importing....
+
+## These are the ones that fail on a clean load:
+## badMonths = as.logical(unlist(res))
+## bad = commands[badMonths]
+## "/mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2011-November.txt"
+## "/mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2012-May.txt"     
+## "/mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2013-December.txt"
+## "/mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2014-January.txt" 
+## "/mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2014-May.txt"     
+
+## So 1st test: do they fail to load NOW? - YES (lucky)!  Here they are:
+res <- lapply(bad[1], .system)
+## INFO *** 2011-11-14 parsing  Genentech Summer Internship Program 2012 
+Traceback (most recent call last):
+django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedb3a5
+
+## next
+res <- lapply(bad[2], .system)
+INFO *** 2012-05-16 parsing  TEQC see all the reads with a given coverage 
+Traceback (most recent call last):
+django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedbea7
+
+## next
+res <- lapply(bad[3], .system)
+INFO *** 2013-12-11 parsing  plotpfm has been removed in PWMEnrich? 
+Traceback (most recent call last):
+django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedb8b6
+
+## next
+res <- lapply(bad[4], .system)
+INFO *** 2014-01-14 parsing  DEseq2 metagenomic analysis without replicates 
+Traceback (most recent call last):
+django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedbfbe
+
+## final example
+res <- lapply(bad[5], .system)
+INFO *** 2014-05-29 parsing  question about how to understand exon usage coefficient value 
+Traceback (most recent call last):
+ ...
+django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedafb7
+
