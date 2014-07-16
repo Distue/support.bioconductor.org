@@ -71,6 +71,29 @@ export PGUSER=postgres
 ./biostar.sh pg_drop pg_create init 
 ## THEN import the emails
 
+## How to back up and restore
+
+## To back up, do this
+./biostar.sh pg_dump
+## You need to enter the postgresql admin password
+## This will tell you the name of the file that it is dumping to.
+## Then before you can restore, you need to drop and recreate
+## the database, by doing:
+./biostar.sh pg_drop pg_create
+## Then restore with:
+./biostar.sh pg_import filename
+## where filename is the file that was created by pg_dump.
+## Then before you can run things you need to set up permissions:
+psql -U postgres biostar
+## (enter postgres admin password)
+grant all privileges on database biostar to biostar;
+grant all on all tables in schema public  to biostar;
+grant all on all sequences in schema public to biostar;
+grant all on all functions in schema public to biostar;
+## Now test it:
+./biostar.sh run
+## and see if you can access http://gamay:8080
+
 
 ############################################3
 ## older stuff from when we had a sqlite back end:
@@ -371,3 +394,36 @@ Traceback (most recent call last):
  ...
 django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedafb7
 
+
+
+
+
+
+
+
+
+
+################################################################################
+## Notes from Dan on how to best merge in 'improvements' from the istvan branch.
+## 
+## Hi Marc,
+
+## I went ahead and pulled and merged this. Here is how I did it, for
+## your future reference:
+
+## cd tasks/forkBiostars/biostar-central/
+## git branch # show what branch you're on
+## git checkout istvan # fails because some stuff is not committed
+## # so commit it:
+## git commit -a
+## # now try again
+## git checkout istvan # now works
+## git pull istvan
+## git checkout master # switch back to master
+## git merge istvan
+## # hopefully the merge will succeed w/o conflicts. If not, let me know.
+## git status
+## git push # enter your github username and password when prompted
+
+
+## D
