@@ -56,7 +56,6 @@ views <- getAllBiocTerms()
 ## Remove "_" from views; -> species should not normally have an underscore
 views <- gsub("_", " ", views)
 
-## TODO:
 ## For everything that is not a 'db0' or 'cdf', require a white space
 ## at the front...
 views <- paste0("(?<= )", views)
@@ -83,7 +82,6 @@ getAllPackageNamesEver <- function(path='~/proj/Rpacks/'){
 ## Then get package names for every package ever in the manifest.
 packageNames <- getAllPackageNamesEver()
 
-## TODO:
 ## For everything in this list, require a starting whitespace
 packageNames <- paste0('(?<= )', packageNames)
 
@@ -106,6 +104,7 @@ cleanNames <- gsub('\\(\\?<= \\)','',names)
 
 commands = paste0("python manage.py patch --tag '",
                   names,'(?=[ ,.]):', cleanNames,"'")
+## TODO: make this above statement more flexible for things that end with commas, semicolons etc.
 
 length(commands)
 
@@ -141,9 +140,5 @@ table(unlist(res))
 ## python manage.py patch --tag 'biobase(?!_):biobase'
 
 
-##############################################################################
-## Almost all of the tags error out with the following bug:
-## django.db.utils.DataError: value too long for type character varying(100)
 
 
-## TODO: blacklist 'help' (and other tags that people find) - Istvan is working on a tool to remove unwanted tags
