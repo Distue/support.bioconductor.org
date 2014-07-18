@@ -91,6 +91,18 @@ grant all privileges on database biostar to biostar;
 grant all on all tables in schema public  to biostar;
 grant all on all sequences in schema public to biostar;
 grant all on all functions in schema public to biostar;
+
+If on production, do:
+update django_site set domain = 'support.bioconductor.org';
+
+In order to log in as an admin user I (Dan) had to log into the database
+(psql -U postgres biostar) and then do this:
+
+update users_user set is_admin = TRUE where email = 'dtenenba@fhcrc.org';
+
+This is because I was not an admin int the gamay version of the DB, I
+guess.
+
 ## Now test it:
 ./biostar.sh run
 ## and see if you can access http://gamay:8080
