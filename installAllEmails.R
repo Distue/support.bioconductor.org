@@ -84,8 +84,10 @@ length(commands)
 
 
 
-lapply(commands, .system)
+res <- lapply(commands, .system)
 
+## make sure they all loaded:
+table(unlist(res))
 
 
 
@@ -156,3 +158,27 @@ lapply(commands, .system)
 
 
 
+## Ok since the latest bug fixes, now the only one that no longer loads is May 2005 (probably not a deal breaker).
+
+
+## It does this:
+
+## INFO --- creating Answer:  how to dat cel files
+## Traceback (most recent call last):
+##   File "manage.py", line 9, in <module>
+##     execute_from_command_line(sys.argv)
+##   File "/home/mcarlson/virt_env/biostar/local/lib/python2.7/site-packages/django/core/management/__init__.py", line 399, in execute_from_command_line
+##     utility.execute()
+##   File "/home/mcarlson/virt_env/biostar/local/lib/python2.7/site-packages/django/core/management/__init__.py", line 392, in execute
+##     self.fetch_command(subcommand).run_from_argv(self.argv)
+##   File "/home/mcarlson/virt_env/biostar/local/lib/python2.7/site-packages/django/core/management/base.py", line 242, in run_from_argv
+##     self.execute(*args, **options.__dict__)
+##   File "/home/mcarlson/virt_env/biostar/local/lib/python2.7/site-packages/django/core/management/base.py", line 285, in execute
+##     output = self.handle(*args, **options)
+##   File "/home/mcarlson/tasks/forkBiostars/biostar-central/biostar/server/management/commands/import_mbox.py", line 53, in handle
+##     parse_mboxx(fname, limit=limit, tag_val=tags)
+##   File "/home/mcarlson/tasks/forkBiostars/biostar-central/biostar/server/management/commands/import_mbox.py", line 270, in parse_mboxx
+##     for b in rows:
+##   File "/home/mcarlson/tasks/forkBiostars/biostar-central/biostar/server/management/commands/import_mbox.py", line 213, in unpack_message
+##     body = body.decode(charset).encode('utf-8')
+## UnicodeDecodeError: 'euc_jp' codec can't decode bytes in position 12-13: illegal multibyte sequence
