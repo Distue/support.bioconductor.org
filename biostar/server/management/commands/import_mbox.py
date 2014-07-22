@@ -135,7 +135,7 @@ def no_junk(line):
 def format_text(text):
     global LINE_WIDTH
     lines = text.splitlines()
-    lines = filter(no_junk, lines)
+    #lines = filter(no_junk, lines) # commenting this leaves all quoted text in.
     lines = [textwrap.fill(line, width=LINE_WIDTH) for line in lines]
     text = "\n".join(lines)
     text = "<div class='preformatted'>" + text + "</div>"
