@@ -634,7 +634,11 @@ def email_handler(request):
         data = dict(status="error", msg="key does not match")
     else:
         body = request.POST.get("body")
-        body = smart_text(body)
+        # suggested fix from istvan to hopefully fix the issue with
+        # being unable to send emails that have ascii characters in them
+        # to the site:
+        #body = smart_text(body)
+        body = smart_text(body, errors="ignore")
 
         # This is for debug only
         #fname = "%s/email-debug.txt" % settings.LIVE_DIR
