@@ -165,7 +165,7 @@ EMAIL_REPLY_SECRET_KEY = "abc"
 EMAIL_REPLY_SUBJECT = u"[bioc] %s"
 
 # Should replying to an email remove the quoted text
-EMAIL_REPLY_REMOVE_QUOTED_TEXT = True
+EMAIL_REPLY_REMOVE_QUOTED_TEXT = False
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
