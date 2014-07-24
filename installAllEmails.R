@@ -61,6 +61,8 @@ sortedFiles <- names(res)
 
 ## just 2013
 filePaths <- paste0(baseDir, sortedFiles[133:144])
+## just 2014
+filePaths <- paste0(baseDir, sortedFiles[145:150])
 
 ## all the stuff
 filePaths <- paste0(baseDir, sortedFiles)
