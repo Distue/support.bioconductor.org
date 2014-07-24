@@ -104,7 +104,7 @@ cleanNames <- gsub('\\(\\?<= \\)','',names)
 
 commands = paste0("python manage.py patch --tag '",
                   names,'(?=[ ,.]):', cleanNames,"'")
-## TODO: make this above statement more flexible for things that end with commas, semicolons etc.
+
 
 length(commands)
 
