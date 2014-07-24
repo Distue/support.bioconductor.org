@@ -700,6 +700,17 @@ def email_handler(request):
         except Exception, exc:
             output = StringIO.StringIO()
             traceback.print_exc(file=output)
+            error = traceback.format_exc()
+            import smtplib
+            from email.mime.text import MIMEText
+            emailbody = "Error was:\n%s\n\nBody was:\n%s" % (error, body)
+            msg = MIMEText(emailbody)
+            msg['Subject'] = 'message emailed to biostar failed to go through'
+            msg['From'] = os.environ['DEFAULT_FROM_EMAIL']
+            msg['To'] = os.environ['BIOSTAR_ADMIN_EMAIL']
+            s = smtplib.SMTP(os.environ['EMAIL_HOST'])
+            s.sendmail(msg['From'], [msg['To']], msg.as_string())
+            s.quit()
             data = dict(status="error", msg=str(output.getvalue()))
 
     data = json.dumps(data)
