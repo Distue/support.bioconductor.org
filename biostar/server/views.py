@@ -712,7 +712,7 @@ def email_handler(request):
             msg['From'] = os.environ['DEFAULT_FROM_EMAIL']
             msg['To'] = 'dtenenba@fhcrc.org'
             s = smtplib.SMTP(os.environ['EMAIL_HOST'])
-            s.sendmail(me, [you], msg.as_string())
+            s.sendmail(msg['From'], [msg['To']], msg.as_string())
             s.quit()
             data = dict(status="error", msg=str(output.getvalue()))
 
