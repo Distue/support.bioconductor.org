@@ -98,10 +98,12 @@ update django_site set domain = 'support.bioconductor.org';
 In order to log in as an admin user I (Dan) had to log into the database
 (psql -U postgres biostar) and then do this:
 
-update users_user set is_admin = TRUE where email = 'dtenenba@fhcrc.org';
+update users_user set is_admin = TRUE, is_staff = TRUE where email = 'dtenenba@fhcrc.org';
 
 This is because I was not an admin int the gamay version of the DB, I
 guess.
+
+Also need to go to admin back and end change ignacio's name to Guest user.
 
 ## Now test it:
 ./biostar.sh run
