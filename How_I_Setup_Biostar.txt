@@ -440,3 +440,17 @@ django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedafb7
 
 
 ## D
+
+
+
+## Dans thread bug:
+## The following appears in a new thread started while in mailing list mode:
+## 'Follow via email for every new thread (mailing list mode)'
+## BUT: you will not actually get any emails sent to your inbox from
+## anyone else untill you change that setting to be 'Follow via email'
+## instead.
+
+## trail: biostar/const.py has MESSAGING_MAP with 'ALL_MESSAGES' option.
+## But this dictionary seems to only be used for things that need to display these options...
+
+
