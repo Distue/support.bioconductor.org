@@ -19,13 +19,13 @@ pip install --upgrade -r conf/requirements/base.txt
 
 
 
-##########################################################################
+#############################################################################
 ## 1st I had permissions issues with the various python libraries. It
 ## seems that installing things as sudo makes them not readable or
 ## executable by mortals...
 
 
-##########################################################################
+#############################################################################
 ## Then there was the weird filterError that Dan had seen before 
 ## (from his email)
 ## Dan followed the instructions in the first answer here:
@@ -48,7 +48,7 @@ npm install less
     ./biostar.sh init import index run
 ## 'import' will pull in older email files...
 
-##########################################################################
+#############################################################################
 ## Starting it up:
 
 ## This just fires it up with test BS:
@@ -82,7 +82,7 @@ export PGUSER=postgres
 ## the database, by doing:
 ./biostar.sh pg_drop pg_create
 ## Then restore with:
-./biostar.sh pg_import filename
+./biostar.sh pg_import /home/mcarlson/data/filename
 ## where filename is the file that was created by pg_dump.
 ## Then before you can run things you need to set up permissions:
 psql -U postgres biostar
