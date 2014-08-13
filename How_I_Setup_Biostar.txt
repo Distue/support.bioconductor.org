@@ -81,6 +81,7 @@ export PGUSER=postgres
 ## Then before you can restore, you need to drop and recreate
 ## the database, by doing:
 ./biostar.sh pg_drop pg_create
+copy dump file to habu and ssh to habu
 ## Then restore with:
 ./biostar.sh pg_import /home/mcarlson/data/filename
 ## where filename is the file that was created by pg_dump.
@@ -106,8 +107,8 @@ guess.
 Also need to go to admin back and end change ignacio's name to Guest user.
 
 ## Now test it:
-./biostar.sh run
-## and see if you can access http://gamay:8080
+./biostar.sh run # only on gamay
+## and see if you can access http://gamay:8080 or production url
 
 
 ############################################3
