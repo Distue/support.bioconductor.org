@@ -98,10 +98,12 @@ update django_site set domain = 'support.bioconductor.org';
 In order to log in as an admin user I (Dan) had to log into the database
 (psql -U postgres biostar) and then do this:
 
-update users_user set is_admin = TRUE where email = 'dtenenba@fhcrc.org';
+update users_user set is_admin = TRUE, is_staff = TRUE where email = 'dtenenba@fhcrc.org';
 
 This is because I was not an admin int the gamay version of the DB, I
 guess.
+
+Also need to go to admin back and end change ignacio's name to Guest user.
 
 ## Now test it:
 ./biostar.sh run
@@ -440,3 +442,17 @@ django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedafb7
 
 
 ## D
+
+
+
+## Dans thread bug:
+## The following appears in a new thread started while in mailing list mode:
+## 'Follow via email for every new thread (mailing list mode)'
+## BUT: you will not actually get any emails sent to your inbox from
+## anyone else untill you change that setting to be 'Follow via email'
+## instead.
+
+## trail: biostar/const.py has MESSAGING_MAP with 'ALL_MESSAGES' option.
+## But this dictionary seems to only be used for things that need to display these options...
+
+
