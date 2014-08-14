@@ -101,6 +101,7 @@ In order to log in as an admin user I (Dan) had to log into the database
 
 update users_user set is_admin = TRUE, is_staff = TRUE where email = 'dtenenba@fhcrc.org';
 update users_user set is_admin = TRUE, is_staff = TRUE where email = 'mcarlson@fhcrc.org';
+update users_user set is_admin = TRUE, is_staff = TRUE where email = 'mtmorgan@fhcrc.org';
 
 ## This is because I was not an admin int the gamay version of the DB, I guess.
 

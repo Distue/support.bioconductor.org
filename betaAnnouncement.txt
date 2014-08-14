@@ -1,0 +1,20 @@
+Hello!
+
+This is a message to announce the beta test for our new support site.  We hope to replace the regular Bioconductor mailing list with this site soon and we have imported the past 11+ years of mailing list discussion into this new site.  If you would like to help us test it out you can do that by logging in here:
+
+https://support.bioconductor.org
+
+For those of you who have posted to the bioconductor mailing list before, you will probably want to recover your well earned reputation from previous posts and answers.  To do that you will need to scroll to the bottom of the log in page and click the link that says 'Forgot Password?'.  This should get you started with your mailing list email address which will already be linked to your previous posts.
+
+And if you have never posted, then you can start a new account from that same page.
+
+As you explore the beta, you may come across things that you would like to see changed or that you feel are not working right.  This site is based on a fork of Biostars, and we ask that you please post such questions to our github repository for this:
+
+https://github.com/Bioconductor/support.bioconductor.org/issues
+
+We aspire to switch over to this new site after labor day, but we are leaving the schedule flexible depending on how well the beta site works.  Also: please note that posts made to the new site during the beta will dissappear after the test period.  We want you to help us test it, but this is not the live deployment phase quite yet.
+
+I expect there will probably be some other questions about this big transition. So please ask them as needed and we will try to answer them the best we can.
+
+
+  Marc
