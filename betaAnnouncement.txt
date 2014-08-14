@@ -25,7 +25,7 @@ questions to our github repository for this:
 
 https://github.com/Bioconductor/support.bioconductor.org/issues
 
-We aspire to switch over to this new site after labor day, but we are
+We aspire to switch over to this new site after Labor Day, but we are
 leaving the schedule flexible depending on how well the beta site
 works.  Also: please note that posts made to the new site during the
 beta will dissappear after the test period.  We want you to help us
