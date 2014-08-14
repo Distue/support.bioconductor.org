@@ -19,13 +19,13 @@ pip install --upgrade -r conf/requirements/base.txt
 
 
 
-##########################################################################
+#############################################################################
 ## 1st I had permissions issues with the various python libraries. It
 ## seems that installing things as sudo makes them not readable or
 ## executable by mortals...
 
 
-##########################################################################
+#############################################################################
 ## Then there was the weird filterError that Dan had seen before 
 ## (from his email)
 ## Dan followed the instructions in the first answer here:
@@ -48,7 +48,7 @@ npm install less
     ./biostar.sh init import index run
 ## 'import' will pull in older email files...
 
-##########################################################################
+#############################################################################
 ## Starting it up:
 
 ## This just fires it up with test BS:
@@ -72,7 +72,7 @@ export PGUSER=postgres
 ## THEN import the emails
 ## THEN run the tagging script
 
-## How to back up and restore
+## How to back up and restore 
 
 ## To back up, do this
 ./biostar.sh pg_dump
@@ -81,8 +81,9 @@ export PGUSER=postgres
 ## Then before you can restore, you need to drop and recreate
 ## the database, by doing:
 ./biostar.sh pg_drop pg_create
+copy dump file to habu and ssh to habu
 ## Then restore with:
-./biostar.sh pg_import filename
+./biostar.sh pg_import /home/mcarlson/data/filename
 ## where filename is the file that was created by pg_dump.
 ## Then before you can run things you need to set up permissions:
 psql -U postgres biostar
@@ -99,15 +100,18 @@ In order to log in as an admin user I (Dan) had to log into the database
 (psql -U postgres biostar) and then do this:
 
 update users_user set is_admin = TRUE, is_staff = TRUE where email = 'dtenenba@fhcrc.org';
+update users_user set is_admin = TRUE, is_staff = TRUE where email = 'mcarlson@fhcrc.org';
 
-This is because I was not an admin int the gamay version of the DB, I
-guess.
+## This is because I was not an admin int the gamay version of the DB, I guess.
 
-Also need to go to admin back and end change ignacio's name to Guest user.
+## Also need to go to admin back and end change ignacio's name to Guest user.
+## To do that you need to go here:
+## https://support.bioconductor.org/admin/
+
 
 ## Now test it:
-./biostar.sh run
-## and see if you can access http://gamay:8080
+./biostar.sh run # only on gamay
+## and see if you can access http://gamay:8080 or production url
 
 
 ############################################3
