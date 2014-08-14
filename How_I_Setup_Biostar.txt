@@ -72,7 +72,7 @@ export PGUSER=postgres
 ## THEN import the emails
 ## THEN run the tagging script
 
-## How to back up and restore
+## How to back up and restore 
 
 ## To back up, do this
 ./biostar.sh pg_dump
@@ -100,11 +100,14 @@ In order to log in as an admin user I (Dan) had to log into the database
 (psql -U postgres biostar) and then do this:
 
 update users_user set is_admin = TRUE, is_staff = TRUE where email = 'dtenenba@fhcrc.org';
+update users_user set is_admin = TRUE, is_staff = TRUE where email = 'mcarlson@fhcrc.org';
 
-This is because I was not an admin int the gamay version of the DB, I
-guess.
+## This is because I was not an admin int the gamay version of the DB, I guess.
 
-Also need to go to admin back and end change ignacio's name to Guest user.
+## Also need to go to admin back and end change ignacio's name to Guest user.
+## To do that you need to go here:
+## https://support.bioconductor.org/admin/
+
 
 ## Now test it:
 ./biostar.sh run # only on gamay
