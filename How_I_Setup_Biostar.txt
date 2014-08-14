@@ -110,6 +110,24 @@ update users_user set is_admin = TRUE, is_staff = TRUE where email = 'mtmorgan@f
 ## https://support.bioconductor.org/admin/
 
 
+After restoring, you need to re-enter social login info.
+Unfortunately, even though this information is required to be in the config
+environment that initializes biostar, it also requires it 
+(redundantly) to be in the database as well. So go to
+
+https://support.bioconductor.org/admin/
+
+and click on Social Apps and then go through each app and fill in the
+appropriate values.
+
+The canonical place to look for these values is on habu (ssh www-data@habu) in the file ~/biostar-central/index.wsgi. This is a python script that
+initializes the app and it's not checked into github because it
+has sensitive information in it.
+
+
+
+
+
 ## Now test it:
 ./biostar.sh run # only on gamay
 ## and see if you can access http://gamay:8080 or production url
