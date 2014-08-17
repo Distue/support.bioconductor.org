@@ -348,7 +348,7 @@ MAX_POSTS_NEW_USER = 5
 MAX_POSTS_TRUSTED_USER = 30
 
 # How many top level posts per day for a new user.
-MAX_TOP_POSTS_NEW_USER = 2
+MAX_TOP_POSTS_NEW_USER = 30000000 # artificially inflated, change back to 2!
 MAX_TOP_POSTS_TRUSTED_USER = 5
 
 SOCIALACCOUNT_ADAPTER = 'biostar.server.middleware.AutoSignupAdapter'

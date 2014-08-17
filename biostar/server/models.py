@@ -44,11 +44,11 @@ def post_create_messages(sender, instance, created, *args, **kwargs):
             cond1 = Q(profile__message_prefs=ALL_MESSAGES)
             cond2 = Q(profile__tags__name__in=post.parse_tags())
             cond = cond1 | cond2
-            for watcher in User.objects.filter(cond).exclude(id=author.id):
+            for watcher in User.objects.filter(cond):
                 sub, flag = Subscription.objects.get_or_create(post=post, user=watcher, type=EMAIL_MESSAGE)
 
         # Get all subscriptions for the post.
-        subs = Subscription.objects.get_subs(post).exclude(user=author)
+        subs = Subscription.objects.get_subs(post)
 
         # Generate the message from the template.
         content = html.render(name=POST_CREATED_SHORT, post=post, user=author)

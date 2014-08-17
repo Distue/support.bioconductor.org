@@ -5,7 +5,7 @@ import os
 
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 
-BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+BROKER_URL = 'amqp://guest:guest@habu:5672//'
 
 CELERY_TASK_SERIALIZER = 'pickle'
 

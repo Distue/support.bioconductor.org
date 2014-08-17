@@ -1,87 +1,68 @@
-
 #############################################################################
 #############################################################################
-
 ## ALWAYS DO THIS BEFORE YOU WORK ON BIOSTARS:
 source ~/virt_env/biostar/bin/activate
-
 ## http://simononsoftware.com/virtualenv-tutorial/
-
-## For installs:
+## For the initial installs:
 source conf/defaults.env
 pip install --upgrade -r conf/requirements/base.txt
 ## Then edit  conf/defaults.env  so that:
 ## export BIOSTAR_HOSTNAME="0.0.0.0:8080"
 
 #############################################################################
-#############################################################################
-
-
-
-
-#############################################################################
-## 1st I had permissions issues with the various python libraries. It
-## seems that installing things as sudo makes them not readable or
-## executable by mortals...
-
-
-#############################################################################
 ## Then there was the weird filterError that Dan had seen before 
 ## (from his email)
 ## Dan followed the instructions in the first answer here:
-http://stackoverflow.com/questions/17474687/npm-install-giving-error-installing-express
+## http://stackoverflow.com/questions/17474687/npm-install-giving-error-installing-express
 ## Except that instead of v0.10.12 I picked the most recent version.
 ## Then he ran:
 npm install less
-
 ## Setup for this:
-
     # Install the requirements.
     pip install --upgrade -r conf/requirements/base.txt
-
-
-
     # Load the environment variables.
     source conf/defaults.env
-
     # Initialize, import test data and run the site.
     ./biostar.sh init import index run
 ## 'import' will pull in older email files...
 
-#############################################################################
 ## Starting it up:
-
 ## This just fires it up with test BS:
 ## ./biostar.sh index run
 ##
-
-
-
 ## Look for it at:   http://gamay:8080
+#############################################################################
+#############################################################################
 
 
 
+#############################################################################
+#############################################################################
 ## ALWAYS DO THIS BEFORE YOU WORK ON BIOSTARS:
 source ~/virt_env/biostar/bin/activate
-source live/loading.env
-## AND remove this directory too!:
+
+## DB creation and loading:
+source ~/virt_env/biostar/bin/activate
+source live/loading.env  ## needed to prevent us from spamming everyone while we import emails
+
+## Before you drop the DB, be sure to remove this directory too:
 rm -r import/bioc
-## THEN delete, re-create and init postgres DBs
+## THEN to delete, re-create and init postgres DBs
 export PGUSER=postgres
 ./biostar.sh pg_drop pg_create init 
-## THEN import the emails
-## THEN run the tagging script
+## THEN import the emails      (R script)
+## THEN run the tagging script (R script)
 
-## How to back up and restore 
 
+## How to back up and restore:
 ## To back up, do this
 ./biostar.sh pg_dump
 ## You need to enter the postgresql admin password
 ## This will tell you the name of the file that it is dumping to.
-## Then before you can restore, you need to drop and recreate
+## And before you can restore, you need to drop and recreate
 ## the database, by doing:
 ./biostar.sh pg_drop pg_create
-copy dump file to habu and ssh to habu
+## If moving the DB to production, copy the dump file to habu and then ssh to habu
 ## Then restore with:
 ./biostar.sh pg_import /home/mcarlson/data/filename
 ## where filename is the file that was created by pg_dump.
@@ -92,29 +73,46 @@ grant all privileges on database biostar to biostar;
 grant all on all tables in schema public  to biostar;
 grant all on all sequences in schema public to biostar;
 grant all on all functions in schema public to biostar;
-
-If on production, do:
+## If on production, also need to do:
 update django_site set domain = 'support.bioconductor.org';
 
-In order to log in as an admin user I (Dan) had to log into the database
-(psql -U postgres biostar) and then do this:
-
+## In order to log in as an admin user you need to log into the database
+## (psql -U postgres biostar) and then do commands like this:
 update users_user set is_admin = TRUE, is_staff = TRUE where email = 'dtenenba@fhcrc.org';
 update users_user set is_admin = TRUE, is_staff = TRUE where email = 'mcarlson@fhcrc.org';
-
-## This is because I was not an admin int the gamay version of the DB, I guess.
+update users_user set is_admin = TRUE, is_staff = TRUE where email = 'mtmorgan@fhcrc.org';
 
 ## Also need to go to admin back and end change ignacio's name to Guest user.
-## To do that you need to go here:
+## To do that you need to go here as an admin account:
 ## https://support.bioconductor.org/admin/
 
 
+## After restoring, you need to re-enter social login info.
+## Unfortunately, even though this information is required to be in the config
+## environment that initializes biostar, it also requires it 
+## (redundantly) to be in the database as well. So go to
+
+https://support.bioconductor.org/admin/
+
+## and click on Social Apps and then go through each app and fill in the
+## appropriate values.
+
+## The canonical place to look for these values is on habu (ssh
+## www-data@habu) in the file ~/biostar-central/index.wsgi. This is a
+## python script that initializes the app and it's not checked into
+## github because it has sensitive information in it.
+
+
+
 ## Now test it:
-./biostar.sh run # only on gamay
+## On gamay this means: 
+load live/custom.env  ## needed to actually run the site for testing
+./biostar.sh run # only ever do this on gamay
+## And on production it's just always kept alive.
 ## and see if you can access http://gamay:8080 or production url
 
 
-############################################3
+#####################################################################
 ## older stuff from when we had a sqlite back end:
 ## Then re-init:
 ## ALWAYS DO THIS BEFORE YOU WORK ON BIOSTARS:
@@ -123,31 +121,21 @@ update users_user set is_admin = TRUE, is_staff = TRUE where email = 'mcarlson@f
 ## This deletes all posts from the DB (CAREFUL!)
 ## ./biostar.sh delete
 ## ./biostar.sh init
-
-
-## THEN import:
-## This is how we can import an email file:
-## python manage.py import_mbox -f filename
-## python manage.py import_mbox -f 2014-January.txt
-## python manage.py import_mbox -f allEmails.txt
-## python manage.py import_mbox -f 2013.txt
-## python manage.py import_mbox -f 2014.txt
-
+## Then import emails etc. (two R scripts for this)
 ## THEN index (don't need to run this unless you want to index OLD search boxes)
 ## This step is only to index the search engine (and we swapped to
 ##  using a different one of those...
 ## ./biostar.sh index 
-
 ## THEN load new env variables so that the email can work...
 source live/custom.env
-
 ## Or if you have indexed before, just re-run.
 ./biostar.sh run
-
-
-
 ## Then run it
 nohup ./biostar.sh init run > biostar.log 2>&1 &
+
+#############################################################################
+#############################################################################
+
 
 
 
@@ -160,50 +148,20 @@ nohup ./biostar.sh init run > biostar.log 2>&1 &
 ## posts?  Yes, I can create an account, but EVEN IF the emails are
 ## the same I don't have credit for previous posts...
 ##
-## Where are the databases kept?
-
 ## How can I change the look / tabs?
-
-
 ## Where are the word association file for automatically tagging posts?
 ## Tagging ANSWER:
 ## For tagging, I should be able to do it like this:
 ## http://docs.biostars.org/en/latest/manage.html#command-line-tagging
-
-
-
 
 ## How do I set up the automatic email option for users?
 ## What is difference between 'email' and 'email for every thread'?
 ## And why is it that every time I make a post I never get any emails?
 ## I just get some stuff in the server output. Looks like this:
 
-
-
-
-##################
-## More questions:
+## More questions and answers
 ## You showed how I can command line give myself a password like this:
 ## python manage.py usermod -e foo@bar.com -p newpass
-
-## But how will long time users who are logging in for the 1st time
-## get a password for their automatically generated accounts?
-
-## Actually: this job is going to fall to me (to write a script that
-## sets all the passwords and emails appropriately) - but I don't have
-## anyones password.  For that we will either have to get people to
-## sign up with their same email (supplying a password that we can
-## then reset) OR we will have to get those passwords from Martin
-## Maechler...
-
-## And in the very LIKELY event that Martin doesn't want to help (or
-## feels odd about handing over 3000+ passwords - understandable
-## really).  Then we might just want to give people autogenerated
-## passwords and a link to a page where they can change them.  This
-## process will be A LOT easier of Istvan puts something into the GUI
-## to allow users to change their passwords.  At present, I cannot
-## find a GUI way of doing this.
-
 ## I now know where the DB lives (so I can't ever back it up)
 ## They are in: 
 ## ~/tasks/testBiostar/biostar-central/live/ 
@@ -234,10 +192,8 @@ export EMAIL_PORT='25'
 export EMAIL_HOST_USER='biocbuild@fhcrc.org'
 export EMAIL_HOST_PASSWORD=''
 
-
 ## and the DEFAULT_FROM_EMAIL value decides where the email comes from so:
 export DEFAULT_FROM_EMAIL='biocbuild@fhcrc.org'
-
 
 ## OK this FINALLY seems to work.  BUT: only if instead of starting with:
 source conf/defaults.env
@@ -247,26 +203,8 @@ source conf/defaults.env
 source live/custom.env
 ./biostar.sh run
 
-## my gmail account seems to need the 'email every thread' option,
-## while my hutch seems to need only 'email'...  Whats going on?
-## I have verified the behavior, but no explanation for WHY?
-
-## INTENDED difference seems to be that every thread is meant to send
-## me my messages AS WELL as replies.  IOW longer option is intended
-## for full threading.
-
-
-
-## I always get the WRONG URL in the return link for the emails
-## (shouldn't is use the value for BIOSTAR_HOSTNAME ?
-
-## Hitting reply in the inbox should do the right thing, right now it
-## tries to send an email to biocbuild@fhcrc.org (which it gets from
-## DEFAULT_FROM_EMAIL )
-
-## I need to know if it is possible to configure things so that an
-## email list can continue to work alongside the web interface...
-
+########################################################################
+########################################################################
 
 
 
@@ -310,7 +248,7 @@ source live/custom.env
 
 
 #########################################################################
-## Dans email about the production server:
+## Dans emails about the production server:
 ## Everything is hosted on habu. I *think* you should be able to
 ## ssh mcarlson@habu
 ## without needing a password. Let me know if that works.
@@ -368,60 +306,6 @@ sudo service apache restart
 
 
 
-
-###########################################################################
-## ARGH now with a 'clean load', I see we still have some months that
-## are not importing....
-
-## These are the ones that fail on a clean load:
-## badMonths = as.logical(unlist(res))
-## bad = commands[badMonths]
-## "/mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2011-November.txt"
-## "/mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2012-May.txt"     
-## "/mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2013-December.txt"
-## "/mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2014-January.txt" 
-## "/mnt/cpb_anno/mcarlson/BioconductorEmailRepos/unpacked/2014-May.txt"     
-
-## So 1st test: do they fail to load NOW? - YES (lucky)!  Here they are:
-res <- lapply(bad[1], .system)
-## INFO *** 2011-11-14 parsing  Genentech Summer Internship Program 2012 
-Traceback (most recent call last):
-django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedb3a5
-
-## next
-res <- lapply(bad[2], .system)
-INFO *** 2012-05-16 parsing  TEQC see all the reads with a given coverage 
-Traceback (most recent call last):
-django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedbea7
-
-## next
-res <- lapply(bad[3], .system)
-INFO *** 2013-12-11 parsing  plotpfm has been removed in PWMEnrich? 
-Traceback (most recent call last):
-django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedb8b6
-
-## next
-res <- lapply(bad[4], .system)
-INFO *** 2014-01-14 parsing  DEseq2 metagenomic analysis without replicates 
-Traceback (most recent call last):
-django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedbfbe
-
-## final example
-res <- lapply(bad[5], .system)
-INFO *** 2014-05-29 parsing  question about how to understand exon usage coefficient value 
-Traceback (most recent call last):
- ...
-django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedafb7
-
-
-
-
-
-
-
-
-
-
 ################################################################################
 ## Notes from Dan on how to best merge in 'improvements' from the istvan branch.
 ## 
@@ -445,18 +329,5 @@ django.db.utils.DataError: invalid byte sequence for encoding "UTF8": 0xedafb7
 ## git push # enter your github username and password when prompted
 
 
-## D
-
-
-
-## Dans thread bug:
-## The following appears in a new thread started while in mailing list mode:
-## 'Follow via email for every new thread (mailing list mode)'
-## BUT: you will not actually get any emails sent to your inbox from
-## anyone else untill you change that setting to be 'Follow via email'
-## instead.
-
-## trail: biostar/const.py has MESSAGING_MAP with 'ALL_MESSAGES' option.
-## But this dictionary seems to only be used for things that need to display these options...
 
 
