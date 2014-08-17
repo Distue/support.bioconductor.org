@@ -79,7 +79,8 @@ class LongForm(forms.Form):
 
     content = forms.CharField(widget=forms.Textarea,
                               min_length=80, max_length=15000,
-                              label="Enter your post below")
+                              label="Enter your post below",
+                             help_text="If you're having a problem with a Bioconductor package, please paste all the commands that produce the error and the full error text, along with the output of the <i>sessionInfo()</i> command.")
 
     def __init__(self, *args, **kwargs):
         super(LongForm, self).__init__(*args, **kwargs)
