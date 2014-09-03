@@ -47,7 +47,7 @@ def post_create_messages(sender, instance, created, *args, **kwargs):
             cond1 = Q(profile__message_prefs=ALL_MESSAGES)
             cond2 = Q(profile__tags__name__in=post.parse_tags())
             cond = cond1 | cond2
-            for watcher in User.objects.filter(cond):
+            for watcher in User.objects.filter(cond).exclude(id=author.id):
                 sub, flag = Subscription.objects.get_or_create(post=post, user=watcher, type=EMAIL_MESSAGE)
 
         # Get all subscriptions for the post.
