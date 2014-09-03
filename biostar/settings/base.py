@@ -147,7 +147,7 @@ LANGUAGE_CODE = 'en-us'
 
 # These parameters will be inserted into the database automatically.
 SITE_ID = 1
-SITE_NAME = "the Bioconductor Forums"
+SITE_NAME = "support.bioconductor.org"
 SITE_DOMAIN = get_env("BIOSTAR_HOSTNAME")
 
 SERVER_EMAIL = DEFAULT_FROM_EMAIL = get_env("DEFAULT_FROM_EMAIL")
