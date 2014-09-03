@@ -39,10 +39,10 @@ USER_SORT_INVALID_MSG = "Invalid sort parameter received"
 
 # Connects a post sort dropdown word to a data model field.
 POST_SORT_MAP = OrderedDict([
-    ("update", "-lastedit_date"),
+    ("new answers", "-lastedit_date"),
     ("views", "-view_count"),
     ("followers", "-subs_count"),
-    ("answers", "-reply_count"),
+    ("# of answers", "-reply_count"),
     ("bookmarks", "-book_count"),
     ("votes", "-vote_count"),
     ("rank", "-rank"),
