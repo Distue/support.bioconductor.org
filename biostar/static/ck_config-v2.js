@@ -7,7 +7,7 @@ CKEDITOR.stylesSet.add( 'biostar',
 
 	{ name : 'Text', element : 'p' },
 	{ name : 'Code' , element : 'pre' },
-    { name : 'Red Code' , element : 'code'},
+    { name : 'Inline Code' , element : 'code'},
 	{ name : 'Yellow Marker', element : 'span', styles : { 'background-color' : 'Yellow' } }
 
 ]);
