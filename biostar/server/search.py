@@ -73,7 +73,7 @@ class Search(BaseListMixin):
 def suggest_tags(request):
     "Returns suggested tags"
 
-    tags = Tag.objects.all().order_by('-count')[:10]
+    tags = Tag.objects.all().order_by('-count')#[:10]
 
     data = settings.POST_TAG_LIST + [t.name for t in tags]
     data = filter(None, data)
