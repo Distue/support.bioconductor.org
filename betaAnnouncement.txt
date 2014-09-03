@@ -1,3 +1,6 @@
+############################################################################
+## original beta announcement.
+
 Hello!
 
 This is a message to announce the beta test for our new support site.
@@ -34,6 +37,88 @@ test it, but this is not the live deployment phase quite yet.
 I expect there will probably be some other questions about this big
 transition. So please ask them as needed and we will try to answer
 them the best we can.
+
+
+  Marc
+
+
+
+############################################################################
+## email to announce the end of the beta:
+
+Hello,
+
+Thank you to those of you who have participated in the Beta for our
+new support site.  The beta period is now over, and we are getting
+ready for a formal launch of the site during the week of September
+15th.
+
+At that time the regular Bioconductor mailing list will stop being
+used.  If you try to use that mailing list after the final support
+site has gone live, you will instead get a reply telling you that the
+mailing list is no longer in service and directing you to post to the
+new site.
+
+
+ Marc
+
+
+
+############################################################################
+## email to inform users that they should not use the email list:
+
+Hi!  I see that you are trying to use the bioconductor mailing list.
+This mailing list is now retired in order to provide better support
+for the community at the following site:
+
+https://support.bioconductor.org
+
+Please feel free to go there and make use of this site right away.  If
+you had posted to this list before it was closed, then you will be
+able to reclaim your identity by scrolling to the bottom of the log in
+page and click the link that says 'Forgot Password?'.  Otherwise you
+can simply create a new account and log in to the site.
+
+
+ Marc
+
+
+
+############################################################################
+## email to announce that the support site is now live:
+
+
+Hello!
+
+This is a message to announce the release of our new support site. We
+are replacing our regular Bioconductor mailing list with this site
+soon and we have imported the past 11+ years of mailing list
+discussion into this new site.  This also means that the regular
+mailing list is being retired.  So you will not be able to post
+questions to it any longer.  Instead, you can make use of the site by
+going to the following link:
+
+https://support.bioconductor.org
+
+For those of you who have posted to the bioconductor mailing list
+before, you will probably want to recover your well earned reputation
+from previous posts and answers.  To do that you will need to scroll
+to the bottom of the log in page and click the link that says 'Forgot
+Password?'.  This should get you started with your mailing list email
+address which will already be linked to your previous posts.
+
+And if you have never posted, then you can start a new account from
+that same page.
+
+For those of you who have posted under different names at different
+times, you may want to look at our support sites new FAQ so that you
+can get your records merged together.  You can read our new support
+site FAQ here:
+
+https://support.bioconductor.org/info/faq/
+
+The FAQ also contains other helpful information about how to get the
+most out of the new site.  So feel free to give it a look.
 
 
   Marc
