@@ -96,7 +96,7 @@ names <- c(views, packageNames)
 ## always a white space at the beggining of a word.
 
 blackList <- c("(?<= )Software","(?<= )ag", "(?<= )Technology",
-               "(?<= )HELP") ## , "(?<= )les", "(?<= )GENE.E", "(?<= )SIM",
+               "(?<= )HELP" , "(?<= )les" ) ##, "(?<= )GENE.E", "(?<= )SIM",
                ## "(?<= )ROC", "(?<= )BUS", "(?<= )GeneR")
 
 names <- names[!(names %in% blackList)]

@@ -66,6 +66,19 @@ export PGUSER=postgres
 ## Then restore with:
 ./biostar.sh pg_import /home/mcarlson/data/filename
 ## where filename is the file that was created by pg_dump.
+
+## WHEN you have copied the dump over to Habu (scp
+##  /home/mcarlson/data/fullyTagged_biostar-2.2.0-2014-09-05.sql.gz
+##  www-data@habu:~/biostar-central/) do it like this:
+ssh www-data@habu
+workon biostarsenv
+cd biostar-central/
+source live/custom.env
+./biostar.sh pg_drop pg_create
+./biostar.sh pg_import NAME_OF_DUMP_FILE_.sql.gz
+## Then continue as below with the permissions 
+
+
 ## Then before you can run things you need to set up permissions:
 psql -U postgres biostar
 ## (enter postgres admin password)
@@ -77,12 +90,18 @@ grant all on all functions in schema public to biostar;
 update django_site set domain = 'support.bioconductor.org';
 
 ## In order to log in as an admin user you need to log into the database
-## (psql -U postgres biostar) and then do commands like this:
+## (psql -U postgres biostar) and then do commands like this (you can do this before dumping)
 update users_user set is_admin = TRUE, is_staff = TRUE where email = 'dtenenba@fhcrc.org';
 update users_user set is_admin = TRUE, is_staff = TRUE where email = 'mcarlson@fhcrc.org';
 update users_user set is_admin = TRUE, is_staff = TRUE where email = 'mtmorgan@fhcrc.org';
+update users_user set is_admin = TRUE, is_staff = TRUE where email = 'vobencha@fhcrc.org';
+update users_user set is_admin = TRUE, is_staff = TRUE where email = 'sarora@fhcrc.org';
+update users_user set is_admin = TRUE, is_staff = TRUE where email = 'nhayden@fhcrc.org';
+update users_user set is_admin = TRUE, is_staff = TRUE where email = 'hpages@fhcrc.org';
 
-## Also need to go to admin back and end change ignacio's name to Guest user.
+
+
+## Also need to go to admin back and end change ignacio's name to 'Guest User'.
 ## To do that you need to go here as an admin account:
 ## https://support.bioconductor.org/admin/
 
