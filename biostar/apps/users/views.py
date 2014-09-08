@@ -45,7 +45,7 @@ class UserEditForm(forms.Form):
                                    help_text="Get email when a post matching the tag is posted. Example: <code>cancer, annotation, affy, go</code>.")
 
     message_prefs = forms.ChoiceField(required=True, choices=const.MESSAGING_TYPE_CHOICES, label="Notifications",
-                                      help_text="If and when to send email notifications: 'Default' sends email on followups to questions you've created. 'Local messages' does not send email. 'Email' sends email for activity on threads where you have posted.  And 'mailing list mode' should send you emails for all posts coming in to the site. Finally, no matter which mode you choose, you should still be able to track things using the messages tab on this site for threads where you are active.")
+                                      help_text="If and when to send email notifications: 'Default' sends email on followups to questions you've created. 'Local messages' does not send email. 'Email' sends email for activity on threads where you have posted.  And 'email for every new thread' should send you emails for all posts coming in to the site. Finally, no matter which mode you choose, you should still be able to track things using the messages tab on this site for threads where you are active.")
 
     info = forms.CharField(widget=forms.Textarea, required=False, label="Add some information about yourself",
                            help_text="A brief description about yourself (recommended)")

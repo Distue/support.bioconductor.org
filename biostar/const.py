@@ -17,7 +17,7 @@ MESSAGING_MAP = OrderedDict([
     (DEFAULT_MESSAGES, "default",),
     (LOCAL_MESSAGE, "local messages",),
     (EMAIL_MESSAGE, "email",),
-    (ALL_MESSAGES, "email for every new thread (mailing list mode)",),
+    (ALL_MESSAGES, "email for every new thread",),
 ])
 
 MESSAGING_TYPE_CHOICES = MESSAGING_MAP.items()
