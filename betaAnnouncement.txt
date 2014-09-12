@@ -63,6 +63,54 @@ will continue to function as before.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+############################################################################
+## goodbye message to inform users that the email list is being shut down:
+
+Hi!  This message is to announce that the old mailing list for
+bioconductor is being retired and replaced with a new support site.
+
+Please use the Bioconductor support site here
+
+    https://support.bioconductor.org
+
+instead of the bioconductor mailing list. To post to the new site,
+simply create a new account by visiting the User Login page
+
+    https://support.bioconductor.org/accounts/login/
+
+For those who have posted to the bioconductor mailing list before,
+recover your well earned reputation from previous posts and answers by
+scrolling to the bottom of the log in page and clicking the link that
+says 'Forgot Password?'.
+
+Frequently Asked Questions about using the support site are available at
+
+    https://support.bioconductor.org/info/faq/
+
+The FAQ describes how to merge different names into a single account,
+and contains other helpful information about how to get the most out
+of site.
+
+
+  Marc
+
+
+
 ############################################################################
 ## email to inform users that they should not use the email list:
 
@@ -90,6 +138,8 @@ of site.
 
 
   Marc
+
+
 
 ############################################################################
 ## email to announce that the support site is now live:
