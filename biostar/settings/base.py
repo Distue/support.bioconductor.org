@@ -8,7 +8,7 @@ from django.core.exceptions import ImproperlyConfigured
 from .logger import LOGGING
 
 # Turn off debug mode on deployed servers.
-DEBUG = True
+DEBUG = False
 
 # Template debug mode.
 TEMPLATE_DEBUG = DEBUG
