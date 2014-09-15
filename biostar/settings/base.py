@@ -6,9 +6,15 @@ from __future__ import absolute_import
 import os
 from django.core.exceptions import ImproperlyConfigured
 from .logger import LOGGING
+import socket
 
 # Turn off debug mode on deployed servers.
-DEBUG = False
+
+if (socket.gethostname() == "gamay"):
+    DEBUG = False
+else:
+    DEBUG = True
+
 
 # Template debug mode.
 TEMPLATE_DEBUG = DEBUG
