@@ -50,6 +50,9 @@ rm -r import/bioc
 ## THEN to delete, re-create and init postgres DBs
 export PGUSER=postgres
 ./biostar.sh pg_drop pg_create init 
+## if the above causes an error saying someone is using the
+## database, then restart apache like this:
+## sudo service apache2 restart
 ## THEN import the emails      (R script)
 ## THEN run the tagging script (R script)
 
