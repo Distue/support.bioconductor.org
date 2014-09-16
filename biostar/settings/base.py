@@ -11,9 +11,9 @@ import socket
 # Turn off debug mode on deployed servers.
 
 if (socket.gethostname() == "gamay"):
-    DEBUG = False
-else:
     DEBUG = True
+else:
+    DEBUG = False
 
 
 # Template debug mode.
