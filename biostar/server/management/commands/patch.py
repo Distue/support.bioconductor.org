@@ -27,6 +27,7 @@ class Command(BaseCommand):
         make_option('--tag', dest='tag', default="", help='tags post by matching a regex.Format regex:name'),
         make_option('--dry', dest='dry', action='store_true', default=False, help='dry run, sometimes applies ;-)'),
         make_option('--merge_users', dest='merge', metavar="FILE", default=False, help='merges users listed in a file, on per row: master alias1 alias2 ...'),
+        make_option('--merge_posts', dest='merge_posts', metavar="FILE", default=False, help='merges posts'),
     )
 
     def handle(self, *args, **options):
@@ -49,6 +50,9 @@ class Command(BaseCommand):
 
         if merge:
             merge_users(merge)
+
+        if options['merge_posts']:
+            merge_posts(options['merge_posts'], args[0])
 
         pk = options['bump_id']
         if pk:
@@ -176,6 +180,19 @@ def merge_users(fname):
         # Delete the users
         aliases.delete()
 
+def merge_posts(master_id, broken_id):
+    # call me like this:
+    # python manage.py patch --merge_posts=master_id broken_id
+    # i.e.
+    # python manage.py patch --merge_posts=61467 61485
+    from biostar.apps.posts.models import Post
+    master = Post.objects.get(id=master_id)
+    broken = Post.objects.get(id=broken_id)
+
+    broken.parent = master
+    broken.root = master.root
+    broken.type = Post.ANSWER
+    broken.save()
 
 def patch_users():
     from biostar.apps.users.models import User, Profile
