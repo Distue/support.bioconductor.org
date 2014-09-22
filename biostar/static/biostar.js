@@ -201,6 +201,8 @@ $(document).ready(function () {
         tagval.removeClass("textinput textInput form-control");
         if (!tagval.hasClass("failsafe"))
             tagval.width("96%");
+        else
+            tagval.width("20%");
 
         var tag_list = $.ajax({
             url: "/local/search/tags/",
