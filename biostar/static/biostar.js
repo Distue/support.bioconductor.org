@@ -198,8 +198,9 @@ $(document).ready(function () {
     var tagval = $("#id_tag_val")
 
     if (tagval.length > 0) {
-        tagval.removeClass("textinput textInput form-control")
-        tagval.width("96%")
+        tagval.removeClass("textinput textInput form-control");
+        if (!tagval.hasClass("failsafe"))
+            tagval.width("96%");
 
         var tag_list = $.ajax({
             url: "/local/search/tags/",
