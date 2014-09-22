@@ -4,7 +4,22 @@
 
 {% block content %}
 
-    {% search_bar %}
+    {#% search_bar %#}
+    <script language="javascript">
+        $( document ).ready(function() {
+            $("#find_posts_with_tag").click(function(){
+                window.location.href = window.location.href + $("#id_tag_val").val();
+            });
+        });
+    </script>
+
+    <div class="col-md-8" id="abId0.5198387801647186">
+
+        <input class="textinput textInput form-control" id="id_tag_val" name="tag_val" type="text" />
+        <button id="find_posts_with_tag" type="button">Find posts with tag</button><br/>
+
+    </div>
+
 
     {% page_bar %}
 
