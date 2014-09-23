@@ -144,3 +144,22 @@ table(unlist(res))
 
 ## GOOD NEWS: this python tool does not appear to double tag the database.
 
+
+
+##################################
+## ON habu just do this:
+load('commands.Rda')
+## And then:
+.system <- function(command){
+    message(command)
+    system(command)
+}
+
+## test
+res <- lapply(commands[1], .system)
+## Looks A-OK
+
+
+res <- lapply(commands, .system)
+
+table(unlist(res))
