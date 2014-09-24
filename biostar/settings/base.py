@@ -10,11 +10,10 @@ import socket
 
 # Turn off debug mode on deployed servers.
 
-if (socket.gethostname() == "gamay"):
-    DEBUG = True
-else:
+if (socket.gethostname() == "habu"):
     DEBUG = False
-
+else:
+    DEBUG = True
 
 # Template debug mode.
 TEMPLATE_DEBUG = DEBUG
