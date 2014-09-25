@@ -43,6 +43,7 @@ def check_user_profile(ip, user):
             f.close()
             location = data.get('country_name', '').title()
             if "unknown" not in location.lower():
+                logger.info("we are about to modify the profile!")
                 user.profile.location = location
                 user.profile.save()
         except Exception, exc:
