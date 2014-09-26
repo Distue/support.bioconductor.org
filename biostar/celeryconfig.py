@@ -2,10 +2,14 @@ from __future__ import absolute_import
 from datetime import timedelta
 from celery.schedules import crontab
 import os
+import socket
 
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 
-BROKER_URL = 'amqp://guest:guest@habu:5672//'
+if (socket.gethostname() == "habu"):
+    BROKER_URL = 'amqp://guest:guest@habu:5672//'
+else:
+    BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 
 CELERY_TASK_SERIALIZER = 'pickle'
 
