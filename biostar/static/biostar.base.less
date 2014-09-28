@@ -32,8 +32,6 @@ h4 {
 
 .btn-success {
   color: #fff;
-  //border-color: darken(@MUTED_BACKGROUND, 1%);
-  //background-color: @MUTED_BACKGROUND;
 }
 
 blockquote p {
@@ -125,8 +123,8 @@ sup {
   border-radius: 3px;
   //font-size:smaller;
   &:hover {
-    color: white;
-    background-color: #6B3E4A;
+    color: @HOVER_COLOR;
+    background-color: @HOVER_BACKGROUND_COLOR;
   }
 }
 
@@ -197,8 +195,7 @@ sup {
     }
   }
   .box.vote {
-    //border:1px solid #ECECEC;
-    background-color: #eeeeee;
+    background-color: @background_gray;
   }
 
 }
@@ -246,42 +243,29 @@ table#posts {
 // Default post row colors.
 .post-row {
 
-  .answered {
-    background-color: @ANSWERED_POST;
+  .unanswered {
+    background-color: @bioc_olive;
     color: white;
   }
 
   .commented {
-    background-color: @COMMENTED_POST;
+    background-color: @bioc_olive;
+    color: bioc_yellow;
+  }
+
+  .answered {
+    background-color: @bioc_blue;
     color: white;
   }
 
   .accepted {
-    background-color: @ACCEPTED_POST;
-    color: @ACCEPTED_POST_TEXT;
-  }
-
-  .unanswered {
-    background-color: @UNANSWERED_POST;
-    color: white;
+    background-color: @bioc_blue;
+    color: @bioc_yellow;
   }
 }
 
 .post-row.Deleted {
   opacity: 0.5;
-}
-
-.post-row.Tool {
-
-  .answered {
-    background-color: #265040;
-    color: white;
-  }
-
-  .unanswered {
-    background-color: #265040;
-    color: white;
-  }
 }
 
 .post-row.News {
@@ -293,42 +277,6 @@ table#posts {
 
   .unanswered {
     background-color: @DEFAULT_NEWS;
-    color: white;
-  }
-}
-
-.post-row.Tutorial {
-
-  .answered {
-    background-color: #2C7990;
-    color: white;
-  }
-
-  .unanswered {
-    background-color: #2C7990;
-    color: white;
-  }
-}
-
-.post-row.Forum {
-
-  .answered {
-    background-color: @DEFAULT_FORUM;
-    color: white;
-  }
-
-  .commented {
-    background-color: @DEFAULT_FORUM;
-    color: yellow;
-  }
-
-  .accepted {
-    background-color: @DEFAULT_FORUM;
-    color: yellow;
-  }
-
-  .unanswered {
-    background-color: @DEFAULT_FORUM;
     color: white;
   }
 }
@@ -392,9 +340,6 @@ ul.flat {
 #topnav {
   margin-top: 3px;
   text-transform: uppercase;
-
-  //font-size: 90%;
-  //line-height: 18px
 }
 
 #topnav > div {
@@ -402,13 +347,14 @@ ul.flat {
   border-radius: 5px;
   -moz-border-radius: 5px;
   &:hover {
-    background-color: @MUTED_BACKGROUND;
+    color: @HOVER_COLOR;
+    background-color: @HOVER_BACKGROUND_COLOR;
   }
 }
 
 #topnav > div.active {
   color: #000000;
-  background-color: @MUTED_BACKGROUND;
+  background-color: @background_gray;
 }
 
 #post-details {
@@ -528,7 +474,7 @@ ul.flat {
     padding: 10px 10px 5px 10px;
     margin-top: 0.3em;
     color: #666666;
-    background-color: #efefef;
+    background-color: @background_gray;
     border-bottom: 1px solid #eeeeee;
     hr {
       border-top: 1px solid #e3e3e3;
@@ -551,8 +497,7 @@ div#navbar {
   margin-bottom: 2px;
 
   .active {
-    background-color: @MUTED_BACKGROUND;
-    //border: 1px solid @MENU_ACTIVE_BORDER;
+    background-color: @background_gray;
     border-radius: 4px;
   }
 
@@ -560,7 +505,7 @@ div#navbar {
     padding: 0.1em;
     padding-left: 1em;
     margin-bottom: 1px;
-    background-color: #eeeeee;
+    background-color: @background_gray;
     border-radius: 4px;
     border: 1px solid #ececec;
     //text-align: center;
@@ -571,14 +516,13 @@ div#navbar {
     text-align: center;
     border-radius: 4px;
     &:hover {
-      background-color: #eeeeee;
+      color: @HOVER_COLOR;
+      background-color: @HOVER_BACKGROUND_COLOR;
     }
   }
 
   .newpost {
-    a {
-      //color: @ACCENT_COLOR;
-    }
+      a {}
   }
 
   .mid {
@@ -589,7 +533,8 @@ div#navbar {
     margin-left: 2px;
     margin-bottom: 2px;
     &:hover {
-      background-color: @MUTED_BACKGROUND;
+      color: @HOVER_COLOR;
+      background-color: @HOVER_BACKGROUND_COLOR;
     }
 
   }
@@ -624,8 +569,8 @@ div#navbar {
 
 .vote-popover {
   position: absolute;
-  background-color: @MUTED_BACKGROUND;
-  border-color: @MUTED_BACKGROUND_BORDER;
+  background-color: @background_gray;
+  border-color: @background_gray;
   color: #3c763d;
   padding: 15px;
   margin-bottom: 20px;
@@ -686,7 +631,7 @@ div#navbar {
 }
 
 .select2-results .select2-highlighted {
-  background-color: @MUTED_BACKGROUND;
+  background-color: @background_gray;
   color: black;
 
 }
@@ -721,7 +666,7 @@ div#navbar {
 
   .box {
     padding: 10px 0px 10px 0px;
-    background-color: #f5f5f5;
+    background-color: @background_gray;
     font-size: small;
     margin-left: 10px;
     .loc {
@@ -790,7 +735,7 @@ pre {
 }
 
 .unread.True {
-  background-color: @MUTED_BACKGROUND;
+  background-color: @background_gray;
   margin-bottom: 2px;
 }
 

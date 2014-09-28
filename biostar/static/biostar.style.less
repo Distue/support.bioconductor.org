@@ -1,53 +1,30 @@
 /*
-All variables declared before the import must be
-present because the importing file will use these.
+  All variables declared before the import must be present because the
+  importing file will use these.
 */
 
-/*
-The color of the highlighted nav bar and success messages.
-*/
-@MUTED_BACKGROUND: #dff0d8;
-@MUTED_BACKGROUND_BORDER: #d6e9c6;
+@bioc_blue: #1881C2;            /* from bioconductor.sty */
+@bioc_olive: #87B13F;
+@bioc_yellow: #FFFC20;          /* complementary text color */
 
-/*
-The color of a background that should stand out.
-*/
-@ACCENT_BACKGROUND: #F5E3B4;
-@ACCENT_COLOR: #5B8C3E;
-@ACCENT_BACKGROUND_BORDER: #5B8C3E;
-
-
-/*
-The color of each post type.
-Default means with no answers.
-*/
-@DEFAULT_POST: #5B8C3E;
-
-@ANSWERED_POST: #1881c2;
-@COMMENTED_POST: #436C27;
-@ACCEPTED_POST: #1881c2;
-/*@ACCEPTED_POST_TEXT: #5B8C3E;*/
-@ACCEPTED_POST_TEXT: #000000;
-@UNANSWERED_POST: #87b13f;
-
-
-@DEFAULT_QUESTION: #5B8C3E;
-@ANSWERED_QUESTION: #5B8C3E;
+@background_gray: #F5F5F5;
+@background_dark_gray: #E5E5E5;
 
 @DEFAULT_FORUM: #B79538;
 
-/*
-The colod of job postings and news:
-*/
+/* The color of job postings and news: */
 @DEFAULT_JOB: #AAAAAA;
 @DEFAULT_NEWS: #555555;
 
 /*
 Colors for tags
 */
-@TAG_COLOR: #6B3E4A;
-@TAG_BACKGROUND_COLOR: #ECECEC;
-@TAG_BORDER_COLOR: #BBB;
+@TAG_COLOR: bioc_blue;
+@TAG_BACKGROUND_COLOR: @background_gray;
+@TAG_BORDER_COLOR: @background_dark_gray;
+
+@HOVER_BACKGROUND_COLOR: @background_gray;
+@HOVER_COLOR: @bioc_olive;
 
 /* Import the default styles */
 @import "biostar.base.less";
@@ -63,3 +40,24 @@ code {
     color: black;
     font-size: 100%;
 }
+
+.label-default {
+    color: @bioc_blue;
+    background-color: @background_gray;
+    font-weight: 100;
+    &:hover {
+        color: @HOVER_COLOR;
+        background-color: @HOVER_BACKGROUND_COLOR;
+    }
+}
+
+.alert {
+    color: @bioc_blue;
+    background-color: @background_gray;
+}
+.alert-success {
+    color: @bioc_blue;
+    background-color: @background_gray;
+}
+
+.fa-sign-out:before { }
