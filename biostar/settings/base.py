@@ -405,8 +405,8 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # The google id will injected as a template variable.
-GOOGLE_TRACKER = ""
-GOOGLE_DOMAIN = ""
+GOOGLE_TRACKER = "UA-55275703-1"
+GOOGLE_DOMAIN = "support.bioconductor.org"
 
 # The site logo.
 SITE_LOGO = "biostar2.logo.png"
