@@ -67,34 +67,31 @@
 
 <div class="row visible-lg visible-md" id="navbar">
 
-  <div class="col-md-12 top {% active 'userprofile' topic %}">
-    <span class="pull-right">
-
-      {% if user.is_authenticated %}
-
-      <i class="fa fa-user"></i> {% userlink user %} &nbsp;|&nbsp;
-      <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Logout </a> &bull;
-
-      {% else %}
-
-      <a href="{% url 'login' %}"> sign up / login</a> &bull;
-
-      {% endif %}
-
-      <a href="{% url 'flatpage' 'about' %}">about</a> &bull; <a href="{% url 'flatpage' 'faq' %}">faq</a>
-      &bull; <a href="{% url 'rss' %}">rss <i class="fa fa-rss"></i></a>
-
-    </span>
-  </div>
-
   <div class="col-md-12" id="navbar">
     
     <div class="col-md-3" id="logo">
-      <!-- <a href="http://bioconductor.org"><img src="{{ STATIC_URL }}{{ SITE_LOGO }}" width="230" height="69"></a> -->
       <a href="http://bioconductor.org"><img src="{{ STATIC_URL }}{{ SITE_LOGO }}" class="img-responsive"></a>
     </div>
 
-    <div class="col-md-9">&nbsp;</div>
+    <div class="col-md-9 top {% active 'userprofile' topic %}">
+      <span class="pull-right">
+
+        {% if user.is_authenticated %}
+
+        <i class="fa fa-user"></i> {% userlink user %} &nbsp;|&nbsp;
+        <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Logout </a> &bull;
+
+        {% else %}
+
+        <a href="{% url 'login' %}"> sign up / login</a> &bull;
+
+        {% endif %}
+
+        <a href="{% url 'flatpage' 'about' %}">about</a> &bull; <a href="{% url 'flatpage' 'faq' %}">faq</a>
+        &bull; <a href="{% url 'rss' %}">rss <i class="fa fa-rss"></i></a>
+
+      </span>
+    </div>
 
     <div class="col-md-3"></div>
 
