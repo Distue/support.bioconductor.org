@@ -3,12 +3,12 @@
   importing file will use these.
 */
 
-@bioc_blue: #1881C2;            /* from bioconductor.sty */
-@bioc_olive: #87B13F;
-@bioc_yellow: #FFFC20;          /* complementary text color */
+@bioc-blue: #1881C2;            /* from bioconductor.sty */
+@bioc-olive: #87B13F;
+@bioc-yellow: #FFFC20;          /* complementary text color */
 
-@background_gray: #F5F5F5;
-@background_dark_gray: #E5E5E5;
+@background-gray: #F5F5F5;
+@background-dark-gray: #E5E5E5;
 
 @DEFAULT_FORUM: #B79538;
 
@@ -16,15 +16,15 @@
 @DEFAULT_JOB: #AAAAAA;
 @DEFAULT_NEWS: #555555;
 
-/*
-Colors for tags
-*/
-@TAG_COLOR: bioc_blue;
-@TAG_BACKGROUND_COLOR: @background_gray;
-@TAG_BORDER_COLOR: @background_dark_gray;
+/* computed colors */
 
-@HOVER_BACKGROUND_COLOR: @background_gray;
-@HOVER_COLOR: @bioc_olive;
+@link-color: @bioc-blue;
+@link-hover-color: darken(@bioc-blue, 15%);
+
+/* Colors for tags */
+@TAG_COLOR: @bioc-blue;
+@TAG_BACKGROUND_COLOR: @background-gray;
+@TAG_BORDER_COLOR: @background-dark-gray;
 
 /* Import the default styles */
 @import "biostar.base.less";
@@ -39,25 +39,22 @@ Colors for tags
 code {
     color: black;
     font-size: 100%;
+    background-color: @background-gray;
 }
 
 .label-default {
-    color: @bioc_blue;
-    background-color: @background_gray;
+    color: @bioc-blue;
+    background-color: @background-gray;
     font-weight: 100;
-    &:hover {
-        color: @HOVER_COLOR;
-        background-color: @HOVER_BACKGROUND_COLOR;
-    }
 }
 
 .alert {
-    color: @bioc_blue;
-    background-color: @background_gray;
+    color: @bioc-blue;
+    background-color: @background-gray;
 }
 .alert-success {
-    color: @bioc_blue;
-    background-color: @background_gray;
+    color: @bioc-blue;
+    background-color: @background-gray;
 }
 
 .fa-sign-out:before { }
