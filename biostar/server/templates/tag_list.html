@@ -30,12 +30,9 @@
 
             <div id="tag-list">
                 {% for tag in tags %}
-
-                    <div class="col-xs-3 col-md-3 text-center">
-                        <a class="tag" href="/t/{{ tag.name }}">{{ tag.name }} &times; {{ tag.count }}
-                        </a>
-                    </div>
-
+                <div class="col-sm-2">
+                  {{ tag.count }}&nbsp;&times;<a class="tag" href="/t/{{ tag.name }}">{{ tag.name }}</a>
+                </div>
                 {% endfor %}
             </div>
         </div>
