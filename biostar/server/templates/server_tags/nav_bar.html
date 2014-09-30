@@ -79,7 +79,7 @@
         {% if user.is_authenticated %}
 
         <i class="fa fa-user"></i> {% userlink user %} &nbsp;|&nbsp;
-        <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Logout </a> &bull;
+        <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> logout </a> &bull;
 
         {% else %}
 
@@ -113,9 +113,7 @@
         <a href="{% url 'user-list' %}">Users</a>
       </div>
 
-      <div class="col-md-4"></div>
-
-      <div class="col-md-2 newpost">
+      <div class="col-md-2 col-md-offset-1 newpost">
         <a href="{% url 'new-post' %}" class="navitem">New Question</a>
       </div>
     </div>
@@ -126,24 +124,24 @@
 
       My:
 
-      <a href="{% url 'user-messages' %}">Messages</a>
+      <a href="{% url 'user-messages' %}">messages</a>
       <span class="badge">{% get_count COUNTS 'messages' %}</span>
       &bull;
 
-      <a href="{% url 'user-votes' %}" class="navitem">Votes</a>
+      <a href="{% url 'user-votes' %}" class="navitem">votes</a>
       <span class="badge">{% get_count COUNTS 'votes' %}</span>
       &bull;
 
-      <a href="{% url 'topic-list' topic='myposts' %}" class="navitem">Posts</a>
+      <a href="{% url 'topic-list' topic='myposts' %}" class="navitem">posts</a>
       &bull;
 
-      <a href="{% url 'topic-list' topic='mytags' %}" class="navitem">Tags</a>
+      <a href="{% url 'topic-list' topic='mytags' %}" class="navitem">tags</a>
       &bull;
 
-      <a href="{% url 'topic-list' topic='following' %}" class="navitem">Following</a>
+      <a href="{% url 'topic-list' topic='following' %}" class="navitem">following</a>
       &bull;
 
-      <a href="{% url 'topic-list' topic='bookmarks' %}" class="navitem">Bookmarks</a>
+      <a href="{% url 'topic-list' topic='bookmarks' %}" class="navitem">bookmarks</a>
 
       {% else %}
 
