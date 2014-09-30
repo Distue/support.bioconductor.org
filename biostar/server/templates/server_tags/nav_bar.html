@@ -9,8 +9,7 @@
       <a href="http://bioconductor.org"><img src="{{ STATIC_URL }}{{ SITE_LOGO }}" class="img-responsive"></a>
     </div>
 
-    <div class="col-md-6 top {% active 'userprofile' topic %}">
-      <span class="pull-right">
+    <div class="col-md-9 top text-right {% active 'userprofile' topic %}">
 
         {% if user.is_authenticated %}
 
@@ -26,40 +25,9 @@
         <a href="{% url 'flatpage' 'about' %}">about</a> &bull; <a href="{% url 'flatpage' 'faq' %}">faq</a>
         &bull; <a href="{% url 'rss' %}">rss <i class="fa fa-rss"></i></a>
 
-      </span>
-
     </div>
 
-    <div class="col-md-3">
-      <input type="text" id="searchform" style="width:100%">
-    </div>
-
-    <div class="col-md-3"></div>
-
-    <div class="col-md-9 text-center" id="topnav">
-
-      {% for word in CATEGORIES %}
-
-      <div class="col-md-1 {% active word topic %}">
-        <a href="{% url 'topic-list' topic=word %}">{{ word }} <sup><b>{% get_count COUNTS word %}</b></sup></a>
-      </div>
-
-      {% endfor %}
-
-      <div class="col-md-1 {% current request 'tag-list' %}">
-        <a href="{% url 'tag-list' %}">Tags</a>
-      </div>
-
-      <div class="col-md-1 {% current request 'user-list' %}">
-        <a href="{% url 'user-list' %}">Users</a>
-      </div>
-
-      <div class="col-md-2 newpost">
-        <a href="{% url 'new-post' %}" class="navitem">Ask</a>
-      </div>
-    </div>
-    
-    <div class="col-md-9 text-left {% current request 'user-messages' %}">
+    <div class="col-md-9 text-right {% current request 'user-messages' %}">
 
       {% if user.is_authenticated %}
 
@@ -92,7 +60,35 @@
 
     </div>
     
+    <div class="col-md-9 text-center" id="topnav">
+
+      {% for word in CATEGORIES %}
+
+      <div class="col-md-1 {% active word topic %}">
+        <a href="{% url 'topic-list' topic=word %}">{{ word }} <sup><b>{% get_count COUNTS word %}</b></sup></a>
+      </div>
+
+      {% endfor %}
+
+      <div class="col-md-1 {% current request 'tag-list' %}">
+        <a href="{% url 'tag-list' %}">Tags</a>
+      </div>
+
+      <div class="col-md-1 {% current request 'user-list' %}">
+        <a href="{% url 'user-list' %}">Users</a>
+      </div>
+
+      <div class="col-md-2 newpost">
+        <a href="{% url 'new-post' %}" class="navitem">Ask</a>
+      </div>
+
+      <div class="col-md-4" style="padding: 0em">
+        <input type="text" id="searchform" style="width:95%">
+      </div>
+    </div>
+
   </div>
+
 </div>
 
 <div class="row visible-sm visible-xs">
