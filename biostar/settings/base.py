@@ -10,7 +10,9 @@ import socket
 
 # Turn off debug mode on deployed servers.
 
-if (socket.gethostname() == "habu"):
+PRODUCTION = socket.gethostname() == "habu"
+
+if (PRODUCTION):
     DEBUG = False
 else:
     DEBUG = True
@@ -208,10 +210,20 @@ STATICFILES_FINDERS = (
 )
 
 # List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
+
+if PRODUCTION:
+    TEMPLATE_LOADERS = (
+       (
+            'django.template.loaders.cached.Loader', (
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            )),
+    )
+else:
+    TEMPLATE_LOADERS = (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
