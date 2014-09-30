@@ -31,7 +31,7 @@
             <div id="tag-list">
                 {% for tag in tags %}
                 <div class="col-sm-2">
-                  {{ tag.count }}&nbsp;&times;<a class="tag" href="/t/{{ tag.name }}">{{ tag.name }}</a>
+                  <a class="tag" href="/t/{{ tag.name }}">{{ tag.name }}</a>&nbsp;&times;&nbsp;{{ tag.count }}
                 </div>
                 {% endfor %}
             </div>
