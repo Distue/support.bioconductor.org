@@ -1,4 +1,3 @@
-# -*- coding: utf8 -*-
 #
 # Django settings for biostar project.
 #
@@ -418,9 +417,9 @@ SITE_STYLE_CSS = "biostar.style.less"
 SITE_LATEST_POST_LIMIT = None
 
 # How many recent objects to show in the sidebar.
-RECENT_VOTE_COUNT = 7
-RECENT_USER_COUNT = 7
-RECENT_POST_COUNT = 12
+RECENT_VOTE_COUNT = 5
+RECENT_USER_COUNT = 5
+RECENT_POST_COUNT = 5
 
 # Time between two accesses from the same IP to qualify as a different view.
 POST_VIEW_MINUTES = 5
