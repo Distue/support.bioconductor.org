@@ -54,8 +54,8 @@
         <a href="{% url 'user-list' %}">Users</a>
       </div>
 
-      <div class="col-md-2 col-md-offset-4 newpost">
-        <a href="{% url 'new-post' %}" class="navitem">New Question</a>
+      <div class="col-md-2 newpost">
+        <a href="{% url 'new-post' %}" class="navitem">Ask</a>
       </div>
     </div>
     
@@ -97,65 +97,68 @@
 
 <div class="row visible-sm visible-xs">
 
-    <div class="col-xs-8">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                {% if topic %} {{ topic }} {% else %} View Posts {% endif %}
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                {% for word in CATEGORIES %}
-                    <li>
-                        <a href="/t/{{ word }}">{{ word }}</a>
-                    </li>
-                {% endfor %}
-                <li><a href="{% url 'tag-list' %}">Tags</a></li>
-            </ul>
-        </div>
+  <div class="col-xs-3">
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        {% if topic %} {{ topic }} {% else %} View Posts {% endif %}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        {% for word in CATEGORIES %}
+        <li>
+          <a href="/t/{{ word }}">{{ word }}</a>
+        </li>
+        {% endfor %}
+        <li><a href="{% url 'tag-list' %}">Tags</a></li>
+      </ul>
+    </div>
+  </div>
 
-        <a role="button" class="btn btn-primary" href="{% url 'home' %}">
-            <i class="fa fa-star fa-1x"></i> Home </a>
+  <div class="col-xs-3">
+    <a role="button" class="btn btn-primary" href="{% url 'home' %}">
+      <i class="fa fa-star fa-1x"></i> Home </a>
+  </div>
+
+  <div class="col-xs-3">
+    <div class="btn-group">
+
+      {% if user.is_authenticated %}
+      <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-user"></i> You <span class="badge">{% get_count COUNTS 'messages' %}</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="{% url 'topic-list' topic='myposts' %}"><i class="fa fa-comments"></i> My Posts</a>
+        </li>
+        <li>
+          <a href="{% url 'user-messages' %}"><i class="fa fa-envelope"></i> My Messages
+            <span class="badge">{% get_count COUNTS 'messages' %}</span> </a>
+        </li>
+        <li>
+          <a href="{% url 'topic-list' topic='bookmarks' %}"><i class="fa fa-book"></i> My Bookmarks</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="{% url 'new-post' %}"><i class="fa fa-plus"></i> New Post</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Log Out</a>
+        </li>
+      </ul>
+      {% else %}
+      <div>
+        <a class="btn btn-primary" role="button" href="{% url 'login' %}">
+          <i class="fa fa-user fa-1x"></i> Log In
         </a>
-
-        <div class="btn-group">
-
-            {% if user.is_authenticated %}
-                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-user"></i> You <span class="badge">{% get_count COUNTS 'messages' %}</span>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li>
-                        <a href="{% url 'topic-list' topic='myposts' %}"><i class="fa fa-comments"></i> My Posts</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'user-messages' %}"><i class="fa fa-envelope"></i> My Messages
-                            <span class="badge">{% get_count COUNTS 'messages' %}</span> </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'topic-list' topic='bookmarks' %}"><i class="fa fa-book"></i> My Bookmarks</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="{% url 'new-post' %}"><i class="fa fa-plus"></i> New Post</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Log Out</a>
-                    </li>
-                </ul>
-            {% else %}
-                <div>
-                    <a class="btn btn-primary active" role="button" href="{% url 'login' %}">
-                        <i class="fa fa-user fa-1x"></i> Log In
-                    </a>
-                </div>
-            {% endif %}
-        </div>
+      </div>
+      {% endif %}
     </div>
+  </div>
 
-    <div class="col-xs-4">
-        <input type="text" id="searchform" style="width:100%" value=" search...">
-    </div>
+  <div class="col-xs-3">
+    <input type="text" id="searchform" style="width:100%" value=" search...">
+  </div>
 
 </div>
