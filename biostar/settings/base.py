@@ -22,7 +22,7 @@ USE_COMPRESSOR = False
 
 # The start categories. These tags have special meaning internally.
 START_CATEGORIES = [
-    "Latest", "Open", "News", "Jobs"
+    "Latest", "News", "Jobs"
 ]
 
 # These should be the most frequent (or special) tags on the site.
