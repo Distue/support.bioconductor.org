@@ -22,18 +22,14 @@ USE_COMPRESSOR = False
 
 # The start categories. These tags have special meaning internally.
 START_CATEGORIES = [
-    "Latest",  "Open",
+    "Latest", "Open", "News", "Jobs"
 ]
 
 # These should be the most frequent (or special) tags on the site.
-NAVBAR_TAGS = [
-    "RNA-Seq", "ChIP-Seq", "SNP", "Assembly",
-]
+NAVBAR_TAGS = []
 
 # The last categories. These tags have special meaning internally.
-END_CATEGORIES = [
-    "Tutorials", "Tools",  "Jobs", "Forum",
-]
+END_CATEGORIES = []
 
 # These are the tags that always show up in the tag recommendation dropdown.
 POST_TAG_LIST = NAVBAR_TAGS + ["software error"]
@@ -408,7 +404,7 @@ GOOGLE_TRACKER = ""
 GOOGLE_DOMAIN = ""
 
 # The site logo.
-SITE_LOGO = "biostar2.logo.png"
+SITE_LOGO = "bioconductor_logo_rgb_small.jpg"
 
 # The default CSS file to load.
 SITE_STYLE_CSS = "biostar.style.less"
@@ -499,8 +495,7 @@ else:
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 SESSION_KEY = "session"
 
-# Use a mock email backend for development.
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # On deployed servers the following must be set.
 EMAIL_HOST = get_env("EMAIL_HOST")
