@@ -512,8 +512,10 @@ else:
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 SESSION_KEY = "session"
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
+if socket.gethostname() in ["gamay", "habu"]:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # On deployed servers the following must be set.
 EMAIL_HOST = get_env("EMAIL_HOST")
 EMAIL_PORT = get_env("EMAIL_PORT", func=int)
