@@ -262,7 +262,6 @@ INSTALLED_APPS = [
 
     # 'django.contrib.sessions',
 
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
@@ -273,7 +272,6 @@ INSTALLED_APPS = [
     # Enabling the admin and its documentation.
     'django.contrib.sites',
     'django.contrib.admin',
-    'django.contrib.messages',
     'django.contrib.humanize',
     'django.contrib.flatpages',
     'django.contrib.sessions',
