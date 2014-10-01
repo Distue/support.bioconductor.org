@@ -254,9 +254,7 @@ INSTALLED_APPS = [
     'compressor',
 
     # Enabling the admin and its documentation.
-    'django.contrib.sites',
     'django.contrib.admin',
-    'django.contrib.messages',
     'django.contrib.humanize',
     'django.contrib.flatpages',
     'django.contrib.sessions',
