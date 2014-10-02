@@ -254,9 +254,7 @@ INSTALLED_APPS = [
     'compressor',
 
     # Enabling the admin and its documentation.
-    'django.contrib.sites',
     'django.contrib.admin',
-    'django.contrib.messages',
     'django.contrib.humanize',
     'django.contrib.flatpages',
     'django.contrib.sessions',
@@ -495,7 +493,10 @@ else:
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 SESSION_KEY = "session"
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+if socket.gethostname() in ["gamay", "habu"]:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # On deployed servers the following must be set.
 EMAIL_HOST = get_env("EMAIL_HOST")
