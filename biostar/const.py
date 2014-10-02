@@ -39,14 +39,14 @@ USER_SORT_INVALID_MSG = "Invalid sort parameter received"
 
 # Connects a post sort dropdown word to a data model field.
 POST_SORT_MAP = OrderedDict([
-    ("new answers", "-lastedit_date"),
-    ("views", "-view_count"),
-    ("followers", "-subs_count"),
+    ("New answers", "-lastedit_date"),
+    ("Views", "-view_count"),
+    ("Followers", "-subs_count"),
     ("# of answers", "-reply_count"),
-    ("bookmarks", "-book_count"),
-    ("votes", "-vote_count"),
-    ("rank", "-rank"),
-    ("creation", "-creation_date"),
+    ("Bookmarks", "-book_count"),
+    ("Votes", "-vote_count"),
+    ("Rank", "-rank"),
+    ("Creation", "-creation_date"),
 ])
 
 # These are the fields rendered in the post sort order drop down.
@@ -57,11 +57,11 @@ POST_SORT_INVALID_MSG = "Invalid sort parameter received"
 
 # Connects a word to a number of days
 POST_LIMIT_MAP = OrderedDict([
-    ("all time", 0),
-    ("today", 1),
-    ("this week", 7),
-    ("this month", 30),
-    ("this year", 365),
+    ("All time", 0),
+    ("Today", 1),
+    ("This week", 7),
+    ("This month", 30),
+    ("This year", 365),
 
 ])
 
