@@ -3,14 +3,9 @@
 
 <div class="row visible-lg visible-md" id="navbar">
 
-  <div class="col-md-12">
-    
-    <div class="col-md-3" id="logo">
-      <a href="http://bioconductor.org"><img src="{{ STATIC_URL }}{{ SITE_LOGO }}" class="img-responsive"></a>
-    </div>
+  <div class="col-md-12" id="userbar">
 
-
-    <div class="col-md-5">
+    <div class="col-md-6">
 
       {% if user.is_authenticated %}
 
@@ -43,26 +38,33 @@
 
     </div>
 
-    <div class="col-md-4 text-right {% active 'userprofile' topic %}">
+    <div class="col-md-6 text-right {% active 'userprofile' topic %}">
 
-        {% if user.is_authenticated %}
+      {% if user.is_authenticated %}
 
-        <i class="fa fa-user"></i> {% userlink user %} &nbsp;|&nbsp;
-        <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> logout </a> &bull;
+      <i class="fa fa-user"></i> {% userlink user %} &nbsp;|&nbsp;
+      <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> logout </a> &bull;
 
-        {% else %}
+      {% else %}
 
-        <a href="{% url 'login' %}"> sign up / login</a> &bull;
+      <a href="{% url 'login' %}"> sign up / login</a> &bull;
 
-        {% endif %}
+      {% endif %}
 
-        <a href="{% url 'flatpage' 'about' %}">about</a> &bull; <a href="{% url 'flatpage' 'faq' %}">faq</a>
-        &bull; <a href="{% url 'rss' %}">rss <i class="fa fa-rss"></i></a>
+      <a href="{% url 'flatpage' 'about' %}">about</a> &bull; <a href="{% url 'flatpage' 'faq' %}">faq</a>
+      &bull; <a href="{% url 'rss' %}">rss <i class="fa fa-rss"></i></a>
 
     </div>
 
-    <div class="col-md-9">&nbsp;</div>
+  </div>
+
+  <div class="col-md-12">
     
+    <div class="col-md-3" id="logo">
+      <a href="http://bioconductor.org"><img src="{{ STATIC_URL }}{{ SITE_LOGO }}" class="img-responsive"></a>
+    </div>
+
+
     <div class="col-md-9 text-center" id="topnav">
 
       <div class="col-md-2 newpost">
