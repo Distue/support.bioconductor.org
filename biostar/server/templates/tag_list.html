@@ -4,29 +4,37 @@
 
 {% block content %}
 
-    {#% search_bar %#}
+    <div class="row">&nbsp;</div> 
+
     <script language="javascript">
         $( document ).ready(function() {
-            $("#find_posts_with_tag").click(function(){
+            $("#search-tags").click(function(){
                 window.location.href = window.location.href + $("#id_tag_val").val() + "/";
             });
         });
     </script>
 
-    <br/>
-    <div> <!-- class="col-md-8" id="abId0.5198387801647186"> -->
-<!-- class="textinput textInput form-control" -->
-        <input  id="id_tag_val" class="failsafe" name="tag_val" type="text" size="20"/>
-        <button id="find_posts_with_tag" type="button">Find posts with tag</button><br/>
+    <div class="row">
+
+      <div class="col-md-9">
+
+        <form role="form" method="get" action="{% url 'user-list' %}">
+          <div class="form-group col-xs-6 col-xs-offset-4">
+            <input  class="form-control" id="id_tag_val" name="tag_val"
+                    type="text" placeholder="Enter tags...">
+          </div>
+          <button class="col-xs-2 btn btn-default" id="search-tags" type="button">
+            Search
+          </button>
+        </form>
+
+      </div>
 
     </div>
 
-
-    {% page_bar %}
-
     <div class="row">
-        <div class="col-md-12">
 
+        <div class="col-md-12">
 
             <div id="tag-list">
                 {% for tag in tags %}
@@ -36,9 +44,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="col-md-3">
 
-        </div>
     </div>
 
     {% page_bar %}
