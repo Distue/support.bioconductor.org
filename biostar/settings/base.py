@@ -9,7 +9,9 @@ import socket
 
 # Turn off debug mode on deployed servers.
 
-if (socket.gethostname() == "habu"):
+PRODUCTION = socket.gethostname() == "habu"
+
+if (PRODUCTION):
     DEBUG = False
 else:
     DEBUG = True
@@ -203,10 +205,20 @@ STATICFILES_FINDERS = (
 )
 
 # List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
+
+if PRODUCTION:
+    TEMPLATE_LOADERS = (
+       (
+            'django.template.loaders.cached.Loader', (
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            )),
+    )
+else:
+    TEMPLATE_LOADERS = (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -245,7 +257,6 @@ INSTALLED_APPS = [
 
     # 'django.contrib.sessions',
 
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
@@ -254,6 +265,7 @@ INSTALLED_APPS = [
     'compressor',
 
     # Enabling the admin and its documentation.
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.humanize',
     'django.contrib.flatpages',
@@ -398,8 +410,8 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # The google id will injected as a template variable.
-GOOGLE_TRACKER = ""
-GOOGLE_DOMAIN = ""
+GOOGLE_TRACKER = "UA-55275703-1"
+GOOGLE_DOMAIN = "support.bioconductor.org"
 
 # The site logo.
 SITE_LOGO = "bioconductor_logo_rgb_small.jpg"
@@ -497,7 +509,6 @@ if socket.gethostname() in ["gamay", "habu"]:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 # On deployed servers the following must be set.
 EMAIL_HOST = get_env("EMAIL_HOST")
 EMAIL_PORT = get_env("EMAIL_PORT", func=int)
