@@ -5,7 +5,8 @@
 
     <div class="row">&nbsp;</div> 
 
-    <div class="row">
+
+    <div class="row pagebar">
 
       <div class="col-md-9">
 
@@ -17,9 +18,18 @@
               <input type="text" class="form-control" name="q" value="{{ q }}">
             </div>
           </form>
+
         </div>
 
-        <div class="col-md-11 col-md-offset-1" id="search-results">
+      </div>
+
+    </div>
+
+    <div class="row">
+      
+      <div class="col-md-9">
+
+        <div class="col-md-12" id="search-results">
 
           {% for res in results %}
             <div class="result">
@@ -33,20 +43,20 @@
               <div class="muted">by {{ res.author }}</div>
   
             </div>
-            {% empty %}
+          {% empty %}
             {% if q %}
               <div class="alert alert-warning text-center">No results found.</div>
             {% endif %}
           {% endfor %}
-
 
           {% if results %}
             {% page_bar %}
           {% endif %}
 
         </div>
+
       </div>
 
     </div>
-</div>
+
 {% endblock %}
