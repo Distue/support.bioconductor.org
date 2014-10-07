@@ -162,7 +162,7 @@ $(document).ready(function () {
 
         // Add the search functionality
         searchform.select2({
-            placeholder: "Search...",
+            placeholder: "Live search: start typing...",
             minimumInputLength: 3,
             ajax: {
                 url: TITLE_SEARCH_URL,
