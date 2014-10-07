@@ -42,7 +42,7 @@ POST_SORT_MAP = OrderedDict([
     ("New answers", "-lastedit_date"),
     ("Views", "-view_count"),
     ("Followers", "-subs_count"),
-    ("# of answers", "-reply_count"),
+    ("Answers", "-reply_count"),
     ("Bookmarks", "-book_count"),
     ("Votes", "-vote_count"),
     ("Rank", "-rank"),
