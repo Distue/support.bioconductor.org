@@ -1,4 +1,3 @@
-# -*- coding: utf8 -*-
 #
 # Django settings for biostar project.
 #
@@ -25,18 +24,14 @@ USE_COMPRESSOR = False
 
 # The start categories. These tags have special meaning internally.
 START_CATEGORIES = [
-    "Latest",  "Open",
+    "Latest", "News", "Jobs"
 ]
 
 # These should be the most frequent (or special) tags on the site.
-NAVBAR_TAGS = [
-    "Install", "Bugs"
-]
+NAVBAR_TAGS = []
 
 # The last categories. These tags have special meaning internally.
-END_CATEGORIES = [
-    "Jobs"
-]
+END_CATEGORIES = []
 
 # These are the tags that always show up in the tag recommendation dropdown.
 POST_TAG_LIST = NAVBAR_TAGS + ["software error"]
@@ -428,9 +423,9 @@ SITE_STYLE_CSS = "biostar.style.less"
 SITE_LATEST_POST_LIMIT = None
 
 # How many recent objects to show in the sidebar.
-RECENT_VOTE_COUNT = 7
-RECENT_USER_COUNT = 7
-RECENT_POST_COUNT = 12
+RECENT_VOTE_COUNT = 5
+RECENT_USER_COUNT = 5
+RECENT_POST_COUNT = 5
 
 # Time between two accesses from the same IP to qualify as a different view.
 POST_VIEW_MINUTES = 5

@@ -4,44 +4,42 @@
 
 {% block content %}
 
-    {#% search_bar %#}
     <script language="javascript">
         $( document ).ready(function() {
-            $("#find_posts_with_tag").click(function(){
+            $("#search-tags").click(function(){
                 window.location.href = window.location.href + $("#id_tag_val").val() + "/";
             });
         });
     </script>
 
-    <br/>
-    <div> <!-- class="col-md-8" id="abId0.5198387801647186"> -->
-<!-- class="textinput textInput form-control" -->
-        <input  id="id_tag_val" class="failsafe" name="tag_val" type="text" size="20"/>
-        <button id="find_posts_with_tag" type="button">Find posts with tag</button><br/>
+    <div class="row">
+
+      <div class="col-md-9">
+
+        <div class="input-group col-xs-8 col-xs-offset-4">
+          <span class="input-group-addon">Search</span>
+          <input type="text" name="tag_val" class="form-control" id="id_tag_val" placeholder="Enter tags...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" id="search-tags" type="button">Go!</button>
+          </span>
+        </div>
+
+      </div>
 
     </div>
 
-
-    {% page_bar %}
+    <div class="row">&nbsp;</div>
 
     <div class="row">
-        <div class="col-md-12">
 
-
-            <div id="tag-list">
-                {% for tag in tags %}
-
-                    <div class="col-xs-3 col-md-3 text-center">
-                        <a class="tag" href="/t/{{ tag.name }}">{{ tag.name }} &times; {{ tag.count }}
-                        </a>
-                    </div>
-
-                {% endfor %}
-            </div>
+      <div id="tag-list">
+        {% for tag in tags %}
+        <div class="col-xs-4 col-sm-3 col-md-2">
+          <a class="tag" href="/t/{{ tag.name }}">{{ tag.name }}</a>&nbsp;&times;&nbsp;{{ tag.count }}
         </div>
-        <div class="col-md-3">
+        {% endfor %}
+      </div>
 
-        </div>
     </div>
 
     {% page_bar %}

@@ -1,53 +1,30 @@
 /*
-All variables declared before the import must be
-present because the importing file will use these.
+  All variables declared before the import must be present because the
+  importing file will use these.
 */
 
-/*
-The color of the highlighted nav bar and success messages.
-*/
-@MUTED_BACKGROUND: #dff0d8;
-@MUTED_BACKGROUND_BORDER: #d6e9c6;
+@bioc-blue: #1881C2;            /* from bioconductor.sty */
+@bioc-olive: #87B13F;
+@bioc-yellow: #FFFC20;          /* complementary text color */
 
-/*
-The color of a background that should stand out.
-*/
-@ACCENT_BACKGROUND: #F5E3B4;
-@ACCENT_COLOR: #5B8C3E;
-@ACCENT_BACKGROUND_BORDER: #5B8C3E;
-
-
-/*
-The color of each post type.
-Default means with no answers.
-*/
-@DEFAULT_POST: #5B8C3E;
-
-@ANSWERED_POST: #1881c2;
-@COMMENTED_POST: #436C27;
-@ACCEPTED_POST: #1881c2;
-/*@ACCEPTED_POST_TEXT: #5B8C3E;*/
-@ACCEPTED_POST_TEXT: #000000;
-@UNANSWERED_POST: #87b13f;
-
-
-@DEFAULT_QUESTION: #5B8C3E;
-@ANSWERED_QUESTION: #5B8C3E;
+@background-gray: #F5F5F5;
+@background-dark-gray: #E5E5E5;
 
 @DEFAULT_FORUM: #B79538;
 
-/*
-The colod of job postings and news:
-*/
+/* The color of job postings and news: */
 @DEFAULT_JOB: #AAAAAA;
 @DEFAULT_NEWS: #555555;
 
-/*
-Colors for tags
-*/
-@TAG_COLOR: #6B3E4A;
-@TAG_BACKGROUND_COLOR: #ECECEC;
-@TAG_BORDER_COLOR: #BBB;
+/* computed colors */
+
+@link-color: @bioc-blue;
+@link-hover-color: darken(@bioc-blue, 15%);
+
+/* Colors for tags */
+@TAG_COLOR: @bioc-blue;
+@TAG_BACKGROUND_COLOR: @background-gray;
+@TAG_BORDER_COLOR: @background-dark-gray;
 
 /* Import the default styles */
 @import "biostar.base.less";
@@ -62,4 +39,30 @@ Colors for tags
 code {
     color: black;
     font-size: 100%;
+    background-color: @background-gray;
+}
+
+.label-default {
+    color: @bioc-blue;
+    background-color: @background-gray;
+    font-weight: 100;
+}
+
+.alert {
+    color: @bioc-blue;
+    background-color: @background-gray;
+}
+.alert-success {
+    color: @bioc-blue;
+    background-color: @background-gray;
+}
+
+.fa-sign-out:before { }
+
+div#userbar {
+    margin-bottom: 8px;
+    padding: 0px;
+    background-color: @bioc-blue;
+    color: white;
+    a { color: white; }
 }

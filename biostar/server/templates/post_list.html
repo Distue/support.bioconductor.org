@@ -4,10 +4,6 @@
 
 {% block content %}
 
-    {% search_bar %}
-
-
-
     <div class="row">
         <div class="col-md-9">
 
@@ -24,18 +20,20 @@
 
             </div>
 
-            {% page_bar_sort_posts %}
+            {% page_bar %}
 
         </div>
-        <div class="col-md-3 sidebar">
+        <div class="col-md-3 sidebar visible-md visible-lg">
+
+          <div class="head">Recent...</div>
+
+            {% sidebar_posts RECENT_REPLIES %}
 
             {% sidebar_votes RECENT_VOTES %}
 
-            {% sidebar_locations RECENT_USERS %}
-
             {% sidebar_awards RECENT_AWARDS %}
 
-            {% sidebar_posts RECENT_REPLIES %}
+            {% sidebar_locations RECENT_USERS %}
 
         </div>
     </div>
