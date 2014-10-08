@@ -158,7 +158,14 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+      var isLoggedIn;
+      if ($(".fa-sign-out").length > 0)
+        isLoggedIn = '1';
+      else
+        isLoggedIn = '0';
+      //console.log("isLoggedIn is " + isLoggedIn);
       ga('create', '{{ GOOGLE_TRACKER }}', 'auto');
+      ga('set', 'metric1', isLoggedIn);
       ga('send', 'pageview');
 
     </script>    
