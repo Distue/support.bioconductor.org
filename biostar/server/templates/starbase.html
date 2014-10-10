@@ -159,10 +159,13 @@
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
       var isLoggedIn;
-      if ($(".fa-sign-out").length > 0)
-        isLoggedIn = '1';
-      else
-        isLoggedIn = '0';
+
+      {% if user.is_authenticated %}
+         isLoggedIn = '1';
+      {% else %}
+         isLoggedIn = '0';
+      {% endif %}
+
       //console.log("isLoggedIn is " + isLoggedIn);
       ga('create', '{{ GOOGLE_TRACKER }}', 'auto');
       ga('set', 'metric1', isLoggedIn);
