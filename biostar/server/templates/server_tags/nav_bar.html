@@ -47,7 +47,8 @@
 
       {% else %}
 
-      <a href="{% url 'login' %}"> sign up / login</a> &bull;
+      <a href="{% url 'signup' %}"> sign up</a> /
+      <a href="{% url 'login' %}"> login</a> &bull;
 
       {% endif %}
 
@@ -162,11 +163,20 @@
 
       {% else %}
 
-      <div>
-        <a class="btn btn-primary" role="button" href="{% url 'login' %}">
-          <i class="fa fa-user fa-1x"></i> Log in
-        </a>
-      </div>
+
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-user"></i> User</span>
+        <span class="caret"></span>
+      </button>
+
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="{% url 'signup' %}"><i class="fa fa-sign-in"></i> Sign up</a>
+        </li>
+        <li>
+          <a href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Log in</a>
+        </li>
+      </ul>
 
       {% endif %}
 
