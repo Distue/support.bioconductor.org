@@ -73,7 +73,7 @@ function add_comment(elem) {
         <div class="form-group">\
         <textarea class="input-xlarge span8" id="comment-box" name="content" rows="3"></textarea></div> \
         <div><a class="btn btn-success" href=\'javascript:document.forms["comment-form"].submit()\'><i class="icon-comment"></i> Add comment</a>          \
-        <a class="btn btn-warning pull-right" onclick="javascript:obj=$(\'#comment-row\').remove();"><i class="icon-remove"></i> Cancel</a>   </div>       \
+        </div>       \
     </form>            \
     </div>'
     )
