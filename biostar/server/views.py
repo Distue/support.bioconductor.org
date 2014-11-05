@@ -295,7 +295,7 @@ class UserList(ListView):
         if self.answered not in const.ANSWERED_MAP:
             messages.warning(self.request, const.POST_ANSWERED_INVALID_MSG)
             self.answered = const.POST_ANSWERED_DEFAULT
-            
+
         # Apply the sort on users
         obj = User.objects.get_users(sort=self.sort, limit=self.limit, q=self.q, user=self.request.user)
         return obj
