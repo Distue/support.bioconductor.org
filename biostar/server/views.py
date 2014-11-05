@@ -292,7 +292,7 @@ class UserList(ListView):
             messages.warning(self.request, "Warning! Invalid limit applied!")
             self.limit = const.POST_LIMIT_DEFAULT
 
-        if self.answered not in const.ANSWERED_MAP:
+        if self.answered not in const.POST_ANSWERED_MAP:
             messages.warning(self.request, const.POST_ANSWERED_INVALID_MSG)
             self.answered = const.POST_ANSWERED_DEFAULT
 
