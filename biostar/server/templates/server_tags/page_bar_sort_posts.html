@@ -12,7 +12,7 @@
             <ul class="dropdown-menu" role="menu">
               {% for field in date_fields %}
               <li>
-                <a href="?sort={{ sort }}&limit={{ field }}&q={{ q }}">
+                <a href="?sort={{ sort }}&limit={{ field }}&answered={{ answered }}&q={{ q }}">
                   {% if field == limit %}
                   <span class="glyphicon glyphicon-ok"></span>
                   {% endif %}
@@ -21,10 +21,11 @@
               {% endfor %}
               <li class="divider"></li>
               <li>
-                {% if request.path == "/t/Open/" %}
-                <a href="/"><span class="glyphicon glyphicon-ok"></span>
+                {% if answered == 'unanswered' %}
+                <a href="?sort={{ sort }}&limit={{ limit }}&answered=all&q={{ q }}">
+                <span class="glyphicon glyphicon-ok"></span>
                 {% else %}
-                <a href="/t/Open">
+                <a href="?sort={{ sort }}&limit={{ limit }}&answered=unanswered&q={{ q }}">
                 {% endif %}
                 Unanswered</a>
               </li>
@@ -43,7 +44,7 @@
             <ul class="dropdown-menu" role="menu">
               {% for field in sort_fields %}
               <li>
-                <a href="?sort={{ field }}&limit={{ limit }}&q={{ q }}">
+                <a href="?sort={{ field }}&limit={{ limit }}&answered={{ answered }}&q={{ q }}">
                   {% if field == sort %}
                   <span class="glyphicon glyphicon-ok"></span>
                   {% endif %}

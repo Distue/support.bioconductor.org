@@ -51,6 +51,7 @@ class BaseListMixin(ListView):
 
         sort = self.request.GET.get('sort', const.POST_SORT_DEFAULT)
         limit = self.request.GET.get('limit', const.POST_LIMIT_DEFAULT)
+        answered = self.request.GET.get('answered', const.POST_ANSWERED_DEFAULT)
 
         if sort not in const.POST_SORT_MAP:
             messages.warning(self.request, const.POST_SORT_INVALID_MSG)
@@ -60,8 +61,13 @@ class BaseListMixin(ListView):
             messages.warning(self.request, const.POST_LIMIT_INVALID_MSG)
             limit = const.POST_LIMIT_DEFAULT
 
+        if answered not in const.POST_ANSWERED_MAP:
+            messages.warning(self.request, const.POST_ANSWERED_INVALID_MSG)
+            answered = const.POST_ANSWERED_DEFAULT
+
         context['sort'] = sort
         context['limit'] = limit
+        context['answered'] = answered
         context['q'] = self.request.GET.get('q', '')
 
         return context
@@ -80,6 +86,11 @@ def apply_sort(request, query):
     if days:
         delta = const.now() - timedelta(days=days)
         query = query.filter(lastedit_date__gt=delta)
+
+    answered = request.GET.get('answered', const.POST_ANSWERED_DEFAULT)
+    if (answered == 'unanswered'):
+        query = query.filter(reply_count=0)
+
     return query
 
 
@@ -271,6 +282,7 @@ class UserList(ListView):
         self.q = self.request.GET.get('q', '')
         self.sort = self.request.GET.get('sort', const.USER_SORT_DEFAULT)
         self.limit = self.request.GET.get('limit', const.POST_LIMIT_DEFAULT)
+        self.answered = self.request.GET.get('answered', const.POST_ANSWERED_DEFAULT)
 
         if self.sort not in const.USER_SORT_MAP:
             messages.warning(self.request, "Warning! Invalid sort order!")
@@ -280,6 +292,10 @@ class UserList(ListView):
             messages.warning(self.request, "Warning! Invalid limit applied!")
             self.limit = const.POST_LIMIT_DEFAULT
 
+        if self.answered not in const.ANSWERED_MAP:
+            messages.warning(self.request, const.POST_ANSWERED_INVALID_MSG)
+            self.answered = const.POST_ANSWERED_DEFAULT
+            
         # Apply the sort on users
         obj = User.objects.get_users(sort=self.sort, limit=self.limit, q=self.q, user=self.request.user)
         return obj
@@ -290,6 +306,7 @@ class UserList(ListView):
 
         context['sort'] = self.sort
         context['limit'] = self.limit
+        context['answered'] = self.answered
         context['q'] = self.q
         context['show_lastlogin'] = (self.sort == const.USER_SORT_DEFAULT)
         return context
@@ -300,9 +317,11 @@ class BaseDetailMixin(DetailView):
         context = super(BaseDetailMixin, self).get_context_data(**kwargs)
         sort = self.request.GET.get('sort', const.POST_SORT_DEFAULT)
         limit = self.request.GET.get('limit', const.POST_LIMIT_DEFAULT)
+        answered = self.request.GET.get('answered', const.POST_ANSWERED_DEFAULT)
 
         context['sort'] = sort
         context['limit'] = limit
+        context['answered'] = answered
         context['q'] = self.request.GET.get('q', '')
         return context
 
