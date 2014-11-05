@@ -30,7 +30,7 @@ class LocalManager(UserManager):
     def get_users(self, sort, limit, q, user):
         sort = const.USER_SORT_MAP.get(sort, None)
         days = const.POST_LIMIT_MAP.get(limit, 0)
-        answered = const.POST_ANSWERED.get(answered, const.POST_ANSWERED_DEFAULT)
+        answered = const.POST_ANSWERED_MAP.get(answered, const.POST_ANSWERED_DEFAULT)
 
         if q:
             query = self.filter(name__icontains=q)
