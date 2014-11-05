@@ -30,7 +30,6 @@ class LocalManager(UserManager):
     def get_users(self, sort, limit, q, user):
         sort = const.USER_SORT_MAP.get(sort, None)
         days = const.POST_LIMIT_MAP.get(limit, 0)
-        answered = const.POST_ANSWERED.get(answered, const.POST_ANSWERED_DEFAULT)
 
         if q:
             query = self.filter(name__icontains=q)
@@ -40,9 +39,6 @@ class LocalManager(UserManager):
         if days:
             delta = const.now() - timedelta(days=days)
             query = self.filter(profile__last_login__gt=delta)
-
-        if answered == 'unanswered':
-            query = self.filter(reply_count=0)
 
         if user.is_authenticated() and user.is_moderator:
             query = query.select_related("profile").order_by(sort)
