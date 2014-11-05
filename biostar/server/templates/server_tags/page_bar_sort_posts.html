@@ -19,6 +19,15 @@
                   {{ field }}</a>
               </li>
               {% endfor %}
+              <li class="divider"></li>
+              <li>
+                {% if request.path == "/t/Open/" %}
+                <a href="/"><span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                <a href="/t/Open">
+                {% endif %}
+                Unanswered</a>
+              </li>
             </ul>
         </div>
 
