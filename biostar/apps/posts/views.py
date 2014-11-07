@@ -74,7 +74,7 @@ class LongForm(forms.Form):
     tag_val = forms.CharField(
         label="Post Tags",
         required=True, validators=[valid_tag],
-        help_text="Choose one or more tags to match the topic. To create a new tag just type it in and press ENTER.",
+        help_text="Choose one or more tags to match the topic. To create a new tag just type it in and press ENTER. Be sure and include the names of any relevant Bioconductor packages.",
     )
 
     content = forms.CharField(widget=forms.Textarea,
