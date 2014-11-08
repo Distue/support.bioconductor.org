@@ -42,7 +42,7 @@ class UserEditForm(forms.Form):
                               help_text="Post with tags listed here will show up in the My Tags tab. Use a comma to separate tags. Add a <code>!</code> to remove a tag. Example: <code>limma, go, bugs!</code> (optional)")
 
     watched_tags = forms.CharField(max_length=200, required=False,
-                                   help_text="Get email when a post matching the tag is posted. Example: <code>cancer, annotation, affy, go</code>.")
+                                   help_text="Get email when a post matching the tag is posted. Example: <code>cancer, annotation, affy, go</code>. Taga can be the names of Bioconductor packages (all lower case).")
 
     message_prefs = forms.ChoiceField(required=True, choices=const.MESSAGING_TYPE_CHOICES, label="Notifications",
                                       help_text="If and when to send email notifications: 'Default' sends email on followups to questions you've created. 'Local messages' does not send email. 'Email' sends email for activity on threads where you have posted.  And 'email for every new thread' should send you emails for all posts coming in to the site. Finally, no matter which mode you choose, you should still be able to track things using the messages tab on this site for threads where you are active.")
