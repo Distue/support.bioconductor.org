@@ -105,6 +105,8 @@ SECRET_KEY = get_env("SECRET_KEY")
 
 MANAGERS = ADMINS
 
+
+
 DATABASES = {
     'default': {
         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -112,7 +114,7 @@ DATABASES = {
         'NAME': 'biostar',
         'USER': 'biostar',
         'PASSWORD': get_env("POSTGRESQL_PASSWORD"),
-        'HOST': 'localhost',
+        'HOST': os.getenv("POSTGRESQL_HOST", "localhost"),
         'PORT': '5432',
     }
 }
