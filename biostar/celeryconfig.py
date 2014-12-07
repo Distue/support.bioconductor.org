@@ -9,7 +9,7 @@ CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 if (socket.gethostname() == "habu"):
     BROKER_URL = 'amqp://guest:guest@habu:5672//'
 else:
-    BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+    BROKER_URL = os.getenv('BROKER_URL', 'amqp://guest:guest@localhost:5672//')
 
 CELERY_TASK_SERIALIZER = 'pickle'
 
