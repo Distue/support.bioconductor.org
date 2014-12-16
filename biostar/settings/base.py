@@ -115,7 +115,7 @@ DATABASES = {
         'USER': 'biostar',
         'PASSWORD': get_env("POSTGRESQL_PASSWORD"),
         'HOST': os.getenv("POSTGRESQL_HOST", "localhost"),
-        'PORT': '5432',
+        'PORT': os.getenv("POSTGRESQL_PORT", '5432'),
     }
 }
 
