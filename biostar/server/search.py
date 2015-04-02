@@ -41,6 +41,8 @@ def join_highlights(row):
     "Joins the highlighted text"
     if type(row.highlighted) is dict:
         return ''
+    if not row.highlighted:
+        return
     return '<br>'.join(x for x in row.highlighted)
 
 
@@ -59,6 +61,8 @@ class Search(BaseListMixin):
         content = AutoQuery(self.q)
         query = SearchQuerySet().filter(content=content).highlight()[:50]
         for row in query:
+            if row is None:
+                continue
             context = join_highlights(row)
             context = context or slow_highlight(query=self.q, text=row.content)
             row.context = context
