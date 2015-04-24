@@ -738,8 +738,9 @@ def email_handler(request):
             msg['From'] = os.environ['DEFAULT_FROM_EMAIL']
             msg['To'] = os.environ['BIOSTAR_ADMIN_EMAIL']
             s = smtplib.SMTP(os.environ['EMAIL_HOST'])
-            s.sendmail(msg['From'], [msg['To']], msg.as_string())
-            s.quit()
+            if not "hub.nih.gov" in body:
+                s.sendmail(msg['From'], [msg['To']], msg.as_string())
+                s.quit()
             data = dict(status="error", msg=str(output.getvalue()))
 
     data = json.dumps(data)
