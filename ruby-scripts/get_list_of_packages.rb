@@ -2,7 +2,11 @@ require 'yaml'
 require 'httparty'
 
 def get_list_of_packages(bioc=true, release=false)
-    config = YAML.load_file("./config.yaml")
+    auth = {:username => "readonly", :password => "readonly"}
+    yaml = HTTParty.get('https://hedgehog.fhcrc.org/bioconductor/trunk/bioconductor.org/config.yaml',
+      :basic_auth => auth).to_s
+    fio = StringIO.new(yaml)
+    config = YAML.load_stream(fio).first
 
     if release
       version = config['release_version']
@@ -24,7 +28,6 @@ def get_list_of_packages(bioc=true, release=false)
 
 
     url = "https://hedgehog.fhcrc.org/#{repos}/#{branch}/#{extra}/#{manifest_file}"
-    auth = {:username => "readonly", :password => "readonly"}
     resp = HTTParty.get(url, :basic_auth => auth)
     resp.to_s.split("\n").find_all{|i| i =~ /^Package:/}.map{|i| i.sub("Package:", "").strip}.sort_by{|i|i.downcase}
 end
