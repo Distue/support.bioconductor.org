@@ -129,6 +129,11 @@ urlpatterns = patterns('',
      # Local robots.txt.
     url(r'^robots\.txt$', TemplateView.as_view(template_name="robots.txt", content_type='text/plain'), name='robots'),
 
+    # a sharable link to go to the currently logged in user's user page
+    url(r'^me/$', views.me, name='me'),
+
+    # go to the currently logged in user's profile
+    url(r'^profile/$', views.profile, name='profile'),
 )
 
 # Adding the sitemap.

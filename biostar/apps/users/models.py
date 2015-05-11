@@ -155,6 +155,10 @@ class User(AbstractBaseUser):
         url = reverse("user-details", kwargs=dict(pk=self.id))
         return url
 
+    def get_profile_url(self):
+        url = "/u/edit/%s/" % self.id
+        return url
+
 # This contains the notification types.
 from biostar import const
 

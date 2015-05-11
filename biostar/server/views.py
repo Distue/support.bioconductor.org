@@ -28,6 +28,7 @@ from django.http import Http404
 import markdown, pyzmail
 from biostar.apps.util.email_reply_parser import EmailReplyParser
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 
 logger = logging.getLogger(__name__)
 
@@ -654,6 +655,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.utils.encoding import smart_text
 import json, StringIO, traceback
+
+@login_required
+def me(request):
+    return HttpResponseRedirect(request.user.get_absolute_url())
+
+@login_required
+def profile(request):
+    return HttpResponseRedirect(request.user.get_profile_url())
 
 
 @csrf_exempt
