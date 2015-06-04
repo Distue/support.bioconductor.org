@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block page_title %}
-    Sign Up.
+    Log in
 {% endblock %}
 {% block content %}
     <div class="row">
@@ -53,10 +53,10 @@
                             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
                         {% endif %}
 
-                        <button type="submit" class="btn btn-success">{% trans "Sign In" %} &raquo;</button>
+                        <button type="submit" class="btn btn-success">{% trans "Log in" %} &raquo;</button>
 
                         <span class="btn btn-default pull-center">
-                            <a class="button" href="/accounts/signup/">{% trans "Register" %} &raquo;</a>
+                            <a class="button" href="/accounts/signup/">{% trans "Sign up" %} &raquo;</a>
                         </span>
  
                         <span class="btn btn-default pull-right">
