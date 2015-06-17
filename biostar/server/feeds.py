@@ -82,7 +82,7 @@ class LatestFeed(PostBase):
     description = "Latest 25 posts from the %s" % title
 
     def items(self):
-        posts = Post.objects.filter(type__in=Post.TOP_LEVEL).exclude(type=Post.BLOG).order_by('-creation_date')
+        posts = Post.objects.filter(type__in=Post.TOP_LEVEL, status=Post.OPEN).exclude(type=Post.BLOG).order_by('-creation_date')
         return posts[:FEED_COUNT]
 
 class PostTypeFeed(PostBase):
@@ -105,7 +105,7 @@ class PostTypeFeed(PostBase):
 
     def items(self, obj):
         codes, text = obj
-        posts = Post.objects.filter(type__in=codes).order_by('-creation_date')
+        posts = Post.objects.filter(type__in=Post.TOP_LEVEL, status=Post.OPEN).order_by('-creation_date')
         return posts[:FEED_COUNT]
 
 
