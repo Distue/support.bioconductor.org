@@ -92,7 +92,7 @@ class PostManager(models.Manager):
             query = self.filter(type__in=Post.TOP_LEVEL, tag_set__name__in=include).exclude(
                 tag_set__name__in=exclude)
         else:
-            query = self.filter(type__in=Post.TOP_LEVEL).exclude(tag_set__name__in=exclude)
+            query = self.filter(type__in=Post.TOP_LEVEL,status=Post.OPEN).exclude(tag_set__name__in=exclude)
 
         # Remove fields that are not used.
         query = query.defer('content', 'html')
