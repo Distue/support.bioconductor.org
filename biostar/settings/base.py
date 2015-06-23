@@ -507,7 +507,9 @@ else:
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 SESSION_KEY = "session"
 
-if socket.gethostname() in ["gamay", "habu"]:
+if socket.gethostname() in ["gamay", "habu"] or \
+  ("EMAIL_HOST" in os.environ.keys() and \
+  get_env("EMAIL_HOST") == "mailcatcher"):
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
