@@ -45,6 +45,8 @@ def valid_tag(text):
         raise ValidationError('Please enter at least one tag')
     if len(text) > 100:
         raise ValidationError('Tag line is too long (100 characters max)')
+    if "#" in text:
+        raise ValidationError("Please do not add # to the tag.")
     words = text.split(",")
     if len(words) > 5:
         raise ValidationError('You have too many tags (5 allowed)')
