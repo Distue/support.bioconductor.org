@@ -518,4 +518,8 @@ EMAIL_HOST = get_env("EMAIL_HOST")
 EMAIL_PORT = get_env("EMAIL_PORT", func=int)
 EMAIL_HOST_USER = get_env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = get_env("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS=False
+if ("EMAIL_USE_TLS" in os.environ.keys() and \
+  get_env("EMAIL_USE_TLS").lower() == "true"):
+    EMAIL_USE_TLS=True
 
