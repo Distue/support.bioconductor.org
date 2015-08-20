@@ -509,7 +509,8 @@ SESSION_KEY = "session"
 
 if socket.gethostname() in ["gamay", "habu"] or \
   ("EMAIL_HOST" in os.environ.keys() and \
-  get_env("EMAIL_HOST") == "mailcatcher"):
+  (get_env("EMAIL_HOST") == "mailcatcher") \
+  or ("amazonaws.com" in get_env("EMAIL_HOST").lower())):
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
