@@ -18,7 +18,7 @@ CELERY_ACCEPT_CONTENT = ['pickle']
 import socket
 hostname = socket.gethostname()
 
-if hostname == "habu":
+if hostname in ["habu", "support"] :
     home = "/home/www-data"
 else:
     home = os.getenv("HOME")
