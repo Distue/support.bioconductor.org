@@ -9,7 +9,7 @@ import socket
 
 # Turn off debug mode on deployed servers.
 
-PRODUCTION = socket.gethostname() == "habu"
+PRODUCTION = socket.gethostname() in ["habu", "support"] 
 
 if (PRODUCTION):
     DEBUG = False
