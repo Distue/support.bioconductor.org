@@ -20,8 +20,10 @@ hostname = socket.gethostname()
 
 if hostname in ["habu", "support"] :
     home = "/home/www-data"
-else:
+elif os.environ.has_key('HOME'):
     home = os.getenv("HOME")
+else:
+    home = "/home/www-data"
 
 CELERYBEAT_SCHEDULE = {
 
