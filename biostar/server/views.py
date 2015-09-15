@@ -694,8 +694,9 @@ def email_handler(request):
             if msg.has_key("Auto-Submitted") and \
               msg['Auto-Submitted'] == "auto-replied (zimbra; vacation)":
                 data = dict(status="error", msg="discarding zimbra vacation notification")
+                data = json.dumps(data)
                 return HttpResponse(data, content_type="application/json")
-                
+
             # Extract the address from the address tuples.
             address = msg.get_addresses('to')[0][1]
 
