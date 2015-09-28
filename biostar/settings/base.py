@@ -126,7 +126,7 @@ TEMPLATE_STRING_IF_INVALID = "*** MISSING ***"
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["localhost", get_env("BIOSTAR_HOSTNAME")]
 
-if BIOSTAR_IP in os.environ:
+if 'BIOSTAR_IP' in os.environ:
     ALLOWED_HOSTS.append(os.environ['BIOSTAR_IP'])
 
 
