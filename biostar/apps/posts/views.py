@@ -82,7 +82,11 @@ class LongForm(forms.Form):
 
     content = forms.CharField(widget=forms.Textarea,
                               min_length=80, max_length=15000,
-                              label="Enter your post below (<a target='_blank' href='http://www.bioconductor.org/help/support/posting-guide/'>Posting Guide</a>)",
+                              label=("Enter your post below (<a target='_blank' "
+                              "href='http://www.bioconductor.org/help/support/posting-guide/'>Posting Guide</a>).&nbsp;&nbsp;"
+                              "Please format any code samples that are included in your question.  Information "
+                              "about formatting your code can be found on the <a target='_blank' href='/info/faq/''>F.A.Q.</a> page."),
+
                              help_text="If you're having a problem with a Bioconductor package, please paste all the commands that produce the error and the full error text, along with the output of the <i>sessionInfo()</i> command.")
 
     def __init__(self, *args, **kwargs):
@@ -360,4 +364,3 @@ class EditPost(LoginRequiredMixin, FormView):
 
     def get_success_url(self):
         return reverse("user_details", kwargs=dict(pk=self.kwargs['pk']))
-
