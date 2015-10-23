@@ -690,10 +690,12 @@ def email_handler(request):
                 body = body.encode('utf8', errors='ignore')
                 msg = pyzmail.PyzMessage.factory(body)
 
-            # bail on zimbra auto-replies
-            if msg.has_key("Auto-Submitted") and \
-              msg['Auto-Submitted'] == "auto-replied (zimbra; vacation)":
-                data = dict(status="error", msg="discarding zimbra vacation notification")
+            # bail on auto-replies
+            if (msg.has_key("Auto-Submitted") and \
+              msg['Auto-Submitted'] == "auto-replied (zimbra; vacation)") or \
+              (msg.has_key("Delivery-by-the-Graces-of") and
+              msg["Delivery-by-the-Graces-of"] == "the Vacation program"):
+                data = dict(status="error", msg="discarding vacation notification")
                 data = json.dumps(data)
                 return HttpResponse(data, content_type="application/json")
 
