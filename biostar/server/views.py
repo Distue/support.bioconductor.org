@@ -696,7 +696,7 @@ def email_handler(request):
               (msg.has_key("Delivery-by-the-Graces-of") and
               msg["Delivery-by-the-Graces-of"] == "the Vacation program") or \
               (msg.has_key('From') and \
-              msg['From'] = 'MAILER-DAEMON@amazonses.com'):
+              msg['From'] == 'MAILER-DAEMON@amazonses.com'):
                 data = dict(status="error", msg="discarding vacation notification")
                 data = json.dumps(data)
                 return HttpResponse(data, content_type="application/json")
