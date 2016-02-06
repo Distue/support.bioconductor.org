@@ -93,6 +93,7 @@ def init_social_providers():
         try:
             client_id = data.get('PROVIDER_KEY','')
             secret = data.get('PROVIDER_SECRET_KEY','')
+            key = data.get('KEY', '')
             site = Site.objects.get(id=settings.SITE_ID)
 
             # Check that the provider is registered
@@ -105,7 +106,7 @@ def init_social_providers():
                     name=name,
                     client_id=client_id,
                     provider=name,
-                    secret=secret, key='',
+                    secret=secret, key=key,
                 )
                 app.save()
                 app.sites.add(site)
