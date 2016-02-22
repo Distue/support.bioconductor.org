@@ -12,6 +12,7 @@ from django import template
 from django.core.urlresolvers import reverse
 from biostar import const
 from biostar.server.views import LATEST
+import urllib
 
 register = template.Library()
 
@@ -37,6 +38,14 @@ else:
     @register.simple_tag
     def rand_num():
         return "1"
+
+@register.filter
+@stringfilter
+def replace(value, args):
+    "Replace all instances of old with new."
+    old, new = args.split(",")
+    return value.replace(old, new)
+
 
 @register.filter
 def show_nonzero(value):
