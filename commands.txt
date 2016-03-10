@@ -1,0 +1,6 @@
+
+
+# test email
+python manage.py test_email --settings biostar.settings.embl
+
+
